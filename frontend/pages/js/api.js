@@ -1,4 +1,14 @@
-const API_BASE = 'http://localhost:8001';
+const API_BASE_DEFAULT = 'http://localhost:8001';
+
+const readOverride = () => {
+    try {
+        return window.localStorage.getItem('apiBase');
+    } catch (_) {
+        return null;
+    }
+};
+
+const API_BASE = readOverride() || API_BASE_DEFAULT;
 
 const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '0.0.0.0', '']);
 

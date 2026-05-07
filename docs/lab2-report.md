@@ -37,6 +37,7 @@ The grading bar is the requirements list at the top of the PDF:
 | Linter | ESLint 8.57 + `eslint-config-airbnb-base` 15.0 + `eslint-plugin-import` 2.29 | Spec dictates airbnb-base; pinned the latest 8.x because ESLint 9 forces flat config that airbnb-base doesn't yet support |
 | Module system | Native ES modules (`<script type="module">`) | No bundler needed; the browser's native module loader is enough for Lab 2 |
 | Token storage | `localStorage` | Persists across reloads; Lab 3 will move to a proper auth context, but `localStorage` is the simplest store today |
+| API base override | `localStorage.getItem('apiBase')` falls back to `http://localhost:8001` | Spec value is the default that the teacher's machine uses; Anastasia's mac (where Docker holds port 8001) flips to `:8002` with one DevTools line, no source edit |
 | Off-host fallback | `window.location.hostname` check skips fetch on the live GH Pages site | Stops "no errors in console" from being broken when the public site loads but no backend is reachable |
 
 ---
@@ -104,6 +105,7 @@ Behavioural details:
 - Sets `Content-Type: application/json` when there's a body.
 - Parses the response body once via a single `parseJson` helper (handles empty 204 responses).
 - On non-2xx, throws an `Error` carrying the FastAPI `detail` field (or `message`) **plus** `error.status` so callers can branch on 401/403/404 vs. generic failures.
+- Resolves the API base URL once at module load: `window.localStorage.getItem('apiBase')` first (lets Anastasia retarget to `:8002` for her Docker-blocked mac without editing source), falling back to the spec value `http://localhost:8001`.
 - Detects whether the page is running on `localhost`/`127.0.0.1`/`0.0.0.0`; off-host (e.g. on `kpchknst.github.io`), each per-page module returns early so the static fallback content from Lab 1 stays on screen.
 
 ---
@@ -143,7 +145,7 @@ npm run lint
 
 ## Browser support matrix
 
-Tested with the backend running on `http://localhost:8001` (or `:8002` on Anastasia's Mac due to the Docker port conflict — see `feedback_db_and_environment.md`) and the static frontend served from `http://localhost:8000` via `python3 -m http.server`.
+Tested with the backend running on `http://localhost:8001` (spec) — on Anastasia's Mac both spec ports are held by an unrelated Docker stack, so the actual smoke test ran the backend on `:8002` and the static frontend on `:5500` (`python3 -m http.server 5500 -d frontend/pages`). The JS reads `window.localStorage.getItem('apiBase')` first so the API base flips to `:8002` after a one-time `localStorage.setItem('apiBase', 'http://localhost:8002')` in DevTools — no source edits needed. See `feedback_db_and_environment.md` for the port-conflict context.
 
 | Page | Chrome 130 (mac) | Firefox 132 (mac) | Notes |
 |---|---|---|---|
@@ -177,6 +179,8 @@ All comfortably under the spec's 4-second bar. Cold cache; backend reused warm.
 
 ## How to demo (what the teacher does)
 
+On the **teacher's machine** (spec ports free):
+
 ```bash
 # 1. Boot the backend (Lab 0 environment must already be set up — see LAB0.md)
 cd backend
@@ -194,6 +198,25 @@ python3 -m http.server 8000
 # 5. Navigate to /login.html → submit `regular` / `regular123`. Token stored, nav badge updates.
 # 6. Navigate to /users.html → real users table appears (admin only — log in as admin first).
 # 7. From the repo root: `cd frontend && npm run lint` → exits 0, no output.
+```
+
+On **Anastasia's Mac** (ports 8000 + 8001 held by unrelated Docker — same flow, alternate ports + one-time localStorage flag):
+
+```bash
+# 1. Backend on :8002, with CORS for the frontend port we'll use
+cd backend
+source .venv/bin/activate
+CORS_ORIGINS="http://localhost:5500,http://localhost:8000" \
+    uvicorn app.main:app --reload --port 8002
+
+# 2. Frontend on :5500
+cd ../frontend/pages
+python3 -m http.server 5500
+
+# 3. In DevTools console at http://localhost:5500/index.html, run ONCE:
+#    localStorage.setItem('apiBase', 'http://localhost:8002')
+#    Reload — every page now talks to :8002 instead of :8001.
+#    Reset by running:  localStorage.removeItem('apiBase')
 ```
 
 A screenshot of each of the seven steps lives in `docs/lab2-screenshots/` (added by you before merging).
