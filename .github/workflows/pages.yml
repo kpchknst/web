@@ -1,0 +1,65 @@
+name: Deploy frontend to GitHub Pages
+
+# Triggers: any push to lab1 or main rebuilds and redeploys.
+# Manual trigger via the Actions tab is also available.
+on:
+  push:
+    branches: [lab1, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one Pages deployment runs at a time; newer pushes cancel older in-flight builds.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install Dart Sass
+        working-directory: frontend
+        run: npm ci
+
+      - name: Compile SCSS → pages/styles/main.css
+        working-directory: frontend
+        run: npm run scss
+
+      - name: Stage the static site
+        run: |
+          mkdir -p _site
+          # frontend/pages/ already contains:
+          #   - all 11 HTML files
+          #   - styles/main.css (just compiled)
+          #   - assets/stones/{*.jpg, README.md}
+          #   - .nojekyll
+          cp -r frontend/pages/. _site/
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

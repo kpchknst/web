@@ -1,0 +1,58 @@
+// _home.scss — homepage / article listing.
+
+@use "../variables" as v;
+@use "../mixins" as m;
+
+.page-home__hero {
+  text-align: center;
+  padding: v.$space-xl 0;
+  background: linear-gradient(135deg, v.$selenite 0%, v.$bg-page 100%);
+  border-radius: v.$radius-lg;
+  margin-bottom: v.$space-xl;
+}
+
+.page-home__hero-title {
+  font-family: v.$font-serif;
+  font-size: v.$font-size-display;
+  margin: 0 0 v.$space-sm 0;
+  color: v.$amethyst-deep;
+}
+
+.page-home__hero-subtitle {
+  font-size: v.$font-size-lg;
+  color: v.$text-secondary;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.page-home__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.$space-md;
+  align-items: center;
+  margin-bottom: v.$space-lg;
+}
+
+.page-home__search {
+  flex: 1;
+  min-width: 240px;
+}
+
+.page-home__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.$space-xs;
+}
+
+.page-home__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: v.$space-lg;
+
+  @include m.respond-to(sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @include m.respond-to(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

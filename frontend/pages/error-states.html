@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="All error notifications and validation errors at once — for review.">
+  <title>Stones &amp; Scents — Error &amp; validation states</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+<div class="site-shell">
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-header__logo" href="index.html">Stones &amp; Scents</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a class="site-nav__link" href="index.html">Home</a>
+        <a class="site-nav__link" href="users.html">Users</a>
+        <a class="site-nav__link" href="moderation.html">Moderation</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <div class="container">
+
+      <section class="page-errors" aria-labelledby="errors-title">
+
+        <header class="page-profile__header">
+          <h1 id="errors-title">Error &amp; validation states</h1>
+          <p class="page-profile__subtitle">
+            Showcase page for the spec-mandatory <em>error notifications</em> and <em>validation errors</em>. Each block here demonstrates one variant, statically rendered.
+          </p>
+        </header>
+
+        <!-- 1. Top-level alert variants -->
+        <section class="page-errors__section" aria-labelledby="alerts-section-title">
+          <h2 id="alerts-section-title" class="page-errors__section-title">1. Inline alert notifications</h2>
+          <div class="page-errors__alerts">
+
+            <div class="alert alert--info" role="status">
+              <span class="alert__icon" aria-hidden="true">ⓘ</span>
+              <div>
+                <p class="alert__title">Information</p>
+                <p class="alert__body">Your edit will be reviewed by a moderator before it goes live. You&apos;ll see a notification on your profile when it&apos;s decided.</p>
+              </div>
+            </div>
+
+            <div class="alert alert--success" role="status">
+              <span class="alert__icon" aria-hidden="true">✓</span>
+              <div>
+                <p class="alert__title">Edit approved</p>
+                <p class="alert__body">Your edit to <strong>Rose Quartz</strong> was approved by admin.</p>
+              </div>
+            </div>
+
+            <div class="alert alert--warning" role="alert">
+              <span class="alert__icon" aria-hidden="true">⚠</span>
+              <div>
+                <p class="alert__title">1 pending edit ahead of yours</p>
+                <p class="alert__body">If maria&apos;s edit is approved before yours, the moderator will see your version may need rebasing.</p>
+              </div>
+            </div>
+
+            <div class="alert alert--danger" role="alert">
+              <span class="alert__icon" aria-hidden="true">✕</span>
+              <div>
+                <p class="alert__title">Edit rejected</p>
+                <p class="alert__body">Your edit to <strong>Citrine</strong> was rejected: "Already covered in the Citrine article — please submit a different perfume next time."</p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 2. Validation errors on a real form -->
+        <section class="page-errors__section" aria-labelledby="validation-section-title">
+          <h2 id="validation-section-title" class="page-errors__section-title">2. Form validation errors</h2>
+
+          <form class="form page-editor__form" action="#" method="post" novalidate>
+            <div class="form-field">
+              <label class="form-field__label form-field__label--required" for="vf-username">Username</label>
+              <input class="form-input form-input--invalid" id="vf-username" type="text" value="ab">
+              <p class="form-field__error">Username must be at least 3 characters.</p>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label form-field__label--required" for="vf-email">Email</label>
+              <input class="form-input form-input--invalid" id="vf-email" type="email" value="not-an-email">
+              <p class="form-field__error">Please enter a valid email address (example: name@example.com).</p>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label form-field__label--required" for="vf-password">Password</label>
+              <input class="form-input form-input--invalid" id="vf-password" type="password" value="abc">
+              <p class="form-field__error">Password must be at least 6 characters.</p>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label form-field__label--required" for="vf-confirm">Confirm password</label>
+              <input class="form-input form-input--invalid" id="vf-confirm" type="password" value="abcdef">
+              <p class="form-field__error">Passwords do not match.</p>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label form-field__label--required" for="vf-content">Article body</label>
+              <textarea class="form-textarea form-textarea--invalid" id="vf-content">x</textarea>
+              <div class="form-counter">
+                <p class="form-field__error">Article body must be between 1 and 2000 characters.</p>
+                <span><strong class="form-counter__value form-counter__value--over">2031</strong> / 2000 characters</span>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" class="btn btn--secondary">Reset</button>
+              <button type="submit" class="btn btn--primary" disabled>Submit (disabled — fix errors first)</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- 3. Top-of-page error banner -->
+        <section class="page-errors__section" aria-labelledby="banner-section-title">
+          <h2 id="banner-section-title" class="page-errors__section-title">3. Top-of-page error banner (server / network failure)</h2>
+
+          <div class="alert alert--danger" role="alert">
+            <span class="alert__icon" aria-hidden="true">✕</span>
+            <div>
+              <p class="alert__title">Could not save your changes</p>
+              <p class="alert__body">The server returned a 500 error (request id <code>9c5b2c7-edf-441</code>). Try again in a moment, or contact admin if it keeps failing.</p>
+            </div>
+          </div>
+        </section>
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>Stones &amp; Scents Encyclopedia · Lab 1 · <a href="https://github.com/kpchknst/web">github.com/kpchknst/web</a></small>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

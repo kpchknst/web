@@ -1,0 +1,97 @@
+// _variables.scss — single source of truth for every colour and design token in the site.
+// Spec rule: "Use variables for all colors. Create separate style file with all of color variables."
+
+// --- brand: stone-named colours -----------------------------------------------
+$rose-quartz:        #f6c8d2;
+$rose-quartz-deep:   #e0a4b0;
+$amethyst:           #6a3aa6;
+$amethyst-deep:      #4a236f;
+$citrine:            #f2c75c;
+$citrine-deep:       #c89938;
+$aventurine:         #6ea58a;
+$aventurine-deep:    #4a7864;
+$lapis-lazuli:       #1d3a8a;
+$tiger-eye:          #b07a3a;
+$carnelian:          #c44e3e;
+$selenite:           #f0eef2;
+$tourmaline:         #2c2530;
+
+// --- surfaces ----------------------------------------------------------------
+$bg-page:            #faf7f2;          // warm off-white, like polished selenite
+$bg-surface:         #ffffff;
+$bg-elevated:        #fbfafd;
+$bg-muted:           #f3f0ec;
+$border-subtle:      #e2dde6;
+$border-strong:      #c8c0d0;
+
+// --- text --------------------------------------------------------------------
+$text-primary:       #2c1f33;
+$text-secondary:     #6b6373;
+$text-muted:         #9a93a3;
+$text-inverse:       #ffffff;
+$text-link:          $amethyst-deep;
+
+// --- semantic ----------------------------------------------------------------
+$color-primary:        $amethyst;
+$color-primary-fg:     $text-inverse;
+$color-primary-hover:  $amethyst-deep;
+$color-success:        $aventurine;
+$color-success-hover:  $aventurine-deep;
+$color-success-bg:     #eaf3ee;
+$color-warning:        $citrine;
+$color-warning-hover:  $citrine-deep;
+$color-warning-bg:     #fdf5e0;
+$color-danger:         $carnelian;
+$color-danger-hover:   #a83d2f;
+$color-danger-bg:      #fbe8e4;
+$color-info:           $lapis-lazuli;
+$color-info-bg:        #e6ebf6;
+
+// --- typography --------------------------------------------------------------
+$font-sans:          "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+$font-serif:         "Cormorant Garamond", Georgia, "Times New Roman", serif;
+$font-mono:          "JetBrains Mono", "Courier New", monospace;
+
+$font-size-xs:       0.75rem;
+$font-size-sm:       0.875rem;
+$font-size-base:     1rem;
+$font-size-lg:       1.125rem;
+$font-size-xl:       1.5rem;
+$font-size-xxl:      2rem;
+$font-size-display:  2.5rem;
+
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold:   600;
+
+// --- spacing scale (multiples of 0.25rem) ------------------------------------
+$space-xs:           0.25rem;
+$space-sm:           0.5rem;
+$space-md:           1rem;
+$space-lg:           1.5rem;
+$space-xl:           2.5rem;
+$space-xxl:          4rem;
+
+// --- breakpoints (mobile-first) ----------------------------------------------
+$bp-sm:              480px;
+$bp-md:              768px;
+$bp-lg:              1024px;
+$bp-xl:              1280px;
+
+// --- effects -----------------------------------------------------------------
+$radius-sm:          4px;
+$radius-md:          8px;
+$radius-lg:          16px;
+$radius-pill:        999px;
+
+$shadow-soft:        0 2px 8px rgba(44, 31, 51, 0.08);
+$shadow-strong:      0 8px 24px rgba(44, 31, 51, 0.16);
+$shadow-focus:       0 0 0 3px rgba(106, 58, 166, 0.25);
+
+$transition-base:    180ms ease-out;
+$transition-slow:    320ms ease-in-out;
+
+// --- layout ------------------------------------------------------------------
+$layout-max-width:   1100px;
+$layout-gutter:      $space-lg;
+$header-height:      68px;

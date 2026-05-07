@@ -1,0 +1,73 @@
+// _card.scss — generic card surface used by article tiles, user rows, edit-queue items.
+
+@use "../variables" as v;
+@use "../mixins" as m;
+
+.card {
+  @include m.card-surface;
+  padding: v.$space-md;
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-sm;
+}
+
+.card:hover {
+  box-shadow: v.$shadow-strong;
+  transform: translateY(-2px);
+}
+
+.card__title {
+  margin: 0;
+  font-family: v.$font-serif;
+  font-size: v.$font-size-lg;
+}
+
+.card__meta {
+  font-size: v.$font-size-xs;
+  color: v.$text-muted;
+}
+
+.card__body {
+  font-size: v.$font-size-sm;
+  color: v.$text-secondary;
+  margin: 0;
+}
+
+.card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: v.$space-sm;
+  margin-top: auto;
+  padding-top: v.$space-sm;
+  border-top: 1px solid v.$border-subtle;
+}
+
+// the colored-thumbnail placeholder shown in lieu of an AI-generated image
+.card__thumb {
+  height: 160px;
+  border-radius: v.$radius-md;
+  background: linear-gradient(135deg, v.$rose-quartz, v.$amethyst);
+  position: relative;
+  overflow: hidden;
+}
+
+.card__thumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), transparent 50%);
+}
+
+// per-stone gradient overrides — drop-in replacements for the AI illustrations
+// until the user generates real photographs in /pages/assets/stones/
+.card__thumb--rose-quartz   { background: linear-gradient(135deg, #ffd6dd, v.$rose-quartz-deep); }
+.card__thumb--aventurine    { background: linear-gradient(135deg, #c5e0d2, v.$aventurine-deep); }
+.card__thumb--amethyst      { background: linear-gradient(135deg, #d4baee, v.$amethyst-deep); }
+.card__thumb--citrine       { background: linear-gradient(135deg, #ffe7a8, v.$citrine-deep); }
+.card__thumb--black-tourmaline { background: linear-gradient(135deg, #5b4f63, v.$tourmaline); }
+.card__thumb--lapis-lazuli  { background: linear-gradient(135deg, #6885d3, v.$lapis-lazuli); }
+.card__thumb--moonstone     { background: linear-gradient(135deg, #f3f0ff, #c0bce0); }
+.card__thumb--tigers-eye    { background: linear-gradient(135deg, #e8b878, v.$tiger-eye); }
+.card__thumb--selenite      { background: linear-gradient(135deg, #fdfbff, v.$selenite); }
+.card__thumb--carnelian     { background: linear-gradient(135deg, #e89683, v.$carnelian); }

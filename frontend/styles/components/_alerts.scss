@@ -1,0 +1,65 @@
+// _alerts.scss — inline notifications and validation banners.
+
+@use "../variables" as v;
+
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: v.$space-sm;
+  padding: v.$space-sm v.$space-md;
+  border-radius: v.$radius-md;
+  border: 1px solid transparent;
+  font-size: v.$font-size-sm;
+}
+
+.alert__icon {
+  flex-shrink: 0;
+  font-weight: v.$font-weight-bold;
+  font-size: v.$font-size-base;
+  line-height: 1;
+}
+
+.alert__title {
+  font-weight: v.$font-weight-bold;
+  margin: 0 0 v.$space-xs 0;
+}
+
+.alert__body {
+  margin: 0;
+}
+
+.alert--info {
+  background: v.$color-info-bg;
+  border-color: v.$color-info;
+  color: v.$lapis-lazuli;
+}
+
+.alert--success {
+  background: v.$color-success-bg;
+  border-color: v.$color-success;
+  color: v.$aventurine-deep;
+}
+
+.alert--warning {
+  background: v.$color-warning-bg;
+  border-color: v.$citrine-deep;
+  color: v.$citrine-deep;
+}
+
+.alert--danger {
+  background: v.$color-danger-bg;
+  border-color: v.$color-danger;
+  color: v.$color-danger;
+}
+
+// Toast-style (top-right floating notifications, rendered statically here).
+.toast-stack {
+  position: fixed;
+  top: v.$space-md;
+  right: v.$space-md;
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-sm;
+  z-index: 50;
+  max-width: 360px;
+}

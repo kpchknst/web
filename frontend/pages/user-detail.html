@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="User profile.">
+  <title>Stones &amp; Scents — User detail</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+<div class="site-shell">
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-header__logo" href="index.html">Stones &amp; Scents</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a class="site-nav__link" href="index.html">Home</a>
+        <a class="site-nav__link" href="users.html">Users</a>
+        <a class="site-nav__link" href="moderation.html">Moderation</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <div class="container">
+
+      <section class="page-user-detail" aria-labelledby="user-detail-title">
+        <p class="page-user-form__breadcrumb"><a href="users.html">Users</a> / maria</p>
+
+        <article class="page-user-detail__card">
+          <div class="page-user-detail__header">
+            <div class="page-user-detail__avatar" aria-hidden="true">M</div>
+            <div>
+              <h1 id="user-detail-title" style="margin: 0;">maria</h1>
+              <span class="badge badge--role-regular">regular</span>
+            </div>
+          </div>
+
+          <dl class="page-user-detail__info">
+            <dt>User ID</dt>
+            <dd><code>e8f31909-6af7-4d08-894d-c9f1b993e4d9</code></dd>
+
+            <dt>Joined</dt>
+            <dd>2026-05-08</dd>
+
+            <dt>Edits proposed</dt>
+            <dd>3 (1 approved, 1 pending, 1 rejected)</dd>
+
+            <dt>Last activity</dt>
+            <dd>2026-05-08 14:22</dd>
+          </dl>
+
+          <div class="page-user-detail__actions">
+            <a class="btn btn--secondary" href="user-edit.html">Edit user</a>
+            <a class="btn btn--ghost" href="users.html">Back to listing</a>
+            <button type="button" class="btn btn--danger">Delete user</button>
+          </div>
+        </article>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>Stones &amp; Scents Encyclopedia · Lab 1 · <a href="https://github.com/kpchknst/web">github.com/kpchknst/web</a></small>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A public encyclopedia of natural stones with perfume-pairing notes.">
+  <title>Stones &amp; Scents — Encyclopedia of natural stones</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+<div class="site-shell">
+
+  <!-- top navigation, repeated on every page -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-header__logo" href="index.html">Stones &amp; Scents</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a class="site-nav__link site-nav__link--active" href="index.html">Home</a>
+        <a class="site-nav__link" href="users.html">Users</a>
+        <a class="site-nav__link" href="moderation.html">Moderation</a>
+        <a class="site-nav__link" href="profile.html">My profile</a>
+        <a class="btn btn--secondary btn--small" href="login.html">Log in</a>
+      </nav>
+      <button type="button" class="site-header__menu-toggle" aria-label="Open menu">Menu</button>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <div class="container">
+
+      <!-- hero -->
+      <section class="page-home__hero" aria-labelledby="hero-title">
+        <h1 id="hero-title" class="page-home__hero-title">Stones &amp; Scents</h1>
+        <p class="page-home__hero-subtitle">
+          A growing public encyclopedia of natural stones and minerals — every entry pairs the geology and lore with a hand-picked perfume that matches the stone's character.
+        </p>
+      </section>
+
+      <!-- search + tag filter (visual only — Lab 1 is static) -->
+      <section class="page-home__filters" aria-label="Filter articles">
+        <div class="form-field page-home__search">
+          <label class="form-field__label" for="home-search">Search articles</label>
+          <input class="form-input" id="home-search" type="search" placeholder="rose quartz, perfume pairing…">
+        </div>
+        <div class="page-home__tags" aria-label="Tag filter">
+          <span class="badge badge--tag">quartz-family</span>
+          <span class="badge badge--tag">with-perfume-notes</span>
+          <span class="badge badge--tag">chakra-heart</span>
+          <span class="badge badge--tag">protective</span>
+        </div>
+      </section>
+
+      <!-- 10 stone cards — content mirrors backend/app/seed.py so Lab 2's
+           fetched data drops in without visual change -->
+      <section class="page-home__grid" aria-label="Article list">
+
+        <article class="card">
+          <div class="card__thumb card__thumb--rose-quartz" role="img" aria-label="Rose quartz illustration"></div>
+          <h2 class="card__title">Rose Quartz</h2>
+          <p class="card__meta">v1 · quartz-family · chakra-heart</p>
+          <p class="card__body">A translucent pink quartz long associated with unconditional love. Pairs with Tom Ford Rose Prick or Jo Malone Velvet Rose &amp; Oud.</p>
+          <div class="card__footer">
+            <span class="badge badge--tag">quartz-family</span>
+            <a class="btn btn--small btn--ghost" href="article.html">Read →</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__thumb card__thumb--aventurine" role="img" aria-label="Aventurine illustration"></div>
+          <h2 class="card__title">Aventurine</h2>
+          <p class="card__meta">v1 · quartz-family · chakra-heart</p>
+          <p class="card__body">A green quartzite shimmering with fuchsite mica. Often called the "stone of opportunity". Try Hermès Un Jardin en Méditerranée.</p>
+          <div class="card__footer">
+            <span class="badge badge--tag">quartz-family</span>
+            <a class="btn btn--small btn--ghost" href="article.html">Read →</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__thumb card__thumb--amethyst" role="img" aria-label="Amethyst illustration"></div>
+          <h2 class="card__title">Amethyst</h2>
+          <p class="card__meta">v1 · quartz-family</p>
+          <p class="card__body">The purple variety of quartz, named from the Greek for "not drunken". Mirrors violet-iris fragrances like Frédéric Malle Iris Poudré.</p>
+          <div class="card__footer">
+            <span class="badge badge--tag">quartz-family</span>
+            <a class="btn btn--small btn--ghost" href="article.html">Read →</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__thumb card__thumb--citrine" role="img" aria-label="Citrine illustration"></div>
+          <h2 class="card__title">Citrine</h2>
+          <p class="card__meta">v1 · quartz-family</p>
+          <p class="card__body">The golden-yellow quartz, the "merchant's stone" of folklore. Pairs with citrus-amber compositions: Jo Malone Lime Basil &amp; Mandarin.</p>
+          <div class="card__footer">
+            <span class="badge badge--tag">quartz-family</span>
+            <a class="btn btn--small btn--ghost" href="article.html">Read →</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__thumb card__thumb--black-tourmaline" role="img" aria-label="Black tourmaline illustration"></div>
+          <h2 class="card__title">Black Tourmaline</h2>
+          <p class="card__meta">v1 · protective</p>
+          <p class="card__body">Schorl — the most common tourmaline. The archetypal protective stone. Pairs with smoky-leather compositions: Tom Ford Tobacco Vanille.</p>
+          <div class="card__footer">
+            <span class="badge badge--tag">protective</span>
+            <a class="btn btn--small btn--ghost" href="article.html">Read →</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__thumb card__thumb--lapis-lazuli" role="img" aria-label="Lapis lazuli illustration"></div>
+          <h2 class="card__title">Lapis Lazuli</h2>
+          <p class="card__meta">v1 · with-perfume-notes</p>
+          <p class="card__body">Deep blue lazurite with golden pyrite — mined in Afghanistan for over 6,000 years. Pairs with incense-tinted Etro Shaal Nur.</p>
+          <div class="card__footer">
+            <span class="badge badge--tag">with-perfume-notes</span>
+            <a class="btn btn--small btn--ghost" href="article.html">Read →</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__thumb card__thumb--moonstone" role="img" aria-label="Moonstone illustration"></div>
+          <h2 class="card__title">Moonstone</h2>
+          <p class="card__meta">v1 · with-perfume-notes</p>
+          <p class="card__body">An orthoclase feldspar with a soft cobalt-blue inner glow (adularescence). Pairs with luminous white florals like Carnal Flower.</p>
+          <div class="card__footer">
+            <span class="badge badge--tag">with-perfume-notes</span>
+            <a class="btn btn--small btn--ghost" href="article.html">Read →</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__thumb card__thumb--tigers-eye" role="img" aria-label="Tiger's eye illustration"></div>
+          <h2 class="card__title">Tiger&apos;s Eye</h2>
+          <p class="card__meta">v1 · protective</p>
+          <p class="card__body">A chatoyant golden-brown quartz that shifts in the light. Pairs with warm spiced compositions: Estée Lauder Sensuous.</p>
+          <div class="card__footer">
+            <span class="badge badge--tag">protective</span>
+            <a class="btn btn--small btn--ghost" href="article.html">Read →</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__thumb card__thumb--selenite" role="img" aria-label="Selenite illustration"></div>
+          <h2 class="card__title">Selenite</h2>
+          <p class="card__meta">v1 · with-perfume-notes</p>
+          <p class="card__body">A translucent gypsum, soft enough to scratch with a fingernail. Pairs with clean white musks: Le Labo Santal 33.</p>
+          <div class="card__footer">
+            <span class="badge badge--tag">with-perfume-notes</span>
+            <a class="btn btn--small btn--ghost" href="article.html">Read →</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__thumb card__thumb--carnelian" role="img" aria-label="Carnelian illustration"></div>
+          <h2 class="card__title">Carnelian</h2>
+          <p class="card__meta">v1 · with-perfume-notes</p>
+          <p class="card__body">A translucent orange-red chalcedony, carved into seals since the third millennium BCE. Pairs with amber-spiced YSL Opium.</p>
+          <div class="card__footer">
+            <span class="badge badge--tag">with-perfume-notes</span>
+            <a class="btn btn--small btn--ghost" href="article.html">Read →</a>
+          </div>
+        </article>
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>Stones &amp; Scents Encyclopedia · Lab 1 · <a href="https://github.com/kpchknst/web">github.com/kpchknst/web</a></small>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

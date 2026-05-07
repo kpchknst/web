@@ -1,0 +1,82 @@
+// _buttons.scss — buttons in their three variants.
+
+@use "../variables" as v;
+@use "../mixins" as m;
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: v.$space-sm;
+  padding: v.$space-sm v.$space-md;
+  border: 1px solid transparent;
+  border-radius: v.$radius-sm;
+  font-size: v.$font-size-base;
+  font-weight: v.$font-weight-medium;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background v.$transition-base, color v.$transition-base, border-color v.$transition-base, transform v.$transition-base;
+}
+
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+.btn:focus-visible {
+  @include m.focus-ring;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn--primary {
+  background: v.$color-primary;
+  color: v.$color-primary-fg;
+}
+
+.btn--primary:hover {
+  background: v.$color-primary-hover;
+  color: v.$color-primary-fg;
+  text-decoration: none;
+}
+
+.btn--secondary {
+  background: v.$bg-surface;
+  color: v.$amethyst-deep;
+  border-color: v.$border-strong;
+}
+
+.btn--secondary:hover {
+  background: v.$bg-elevated;
+  text-decoration: none;
+}
+
+.btn--danger {
+  background: v.$color-danger;
+  color: v.$text-inverse;
+}
+
+.btn--danger:hover {
+  background: v.$color-danger-hover;
+  color: v.$text-inverse;
+  text-decoration: none;
+}
+
+.btn--ghost {
+  background: transparent;
+  color: v.$text-secondary;
+}
+
+.btn--ghost:hover {
+  background: v.$bg-muted;
+  color: v.$amethyst-deep;
+  text-decoration: none;
+}
+
+.btn--block { width: 100%; }
+.btn--small {
+  padding: v.$space-xs v.$space-sm;
+  font-size: v.$font-size-sm;
+}

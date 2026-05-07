@@ -1,0 +1,39 @@
+// _reset.scss — minimal modern reset.
+// The universal selector here only sets box-sizing inheritance — no actual styling
+// is applied via global selectors anywhere else (per spec).
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+input, textarea, select, button {
+  font-family: inherit;
+}

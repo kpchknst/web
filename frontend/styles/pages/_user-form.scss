@@ -1,0 +1,27 @@
+// _user-form.scss — shared layout for create-user and edit-user.
+
+@use "../variables" as v;
+@use "../mixins" as m;
+
+.page-user-form {
+  display: flex;
+  justify-content: center;
+}
+
+.page-user-form__card {
+  @include m.card-surface;
+  width: 100%;
+  max-width: 480px;
+  padding: v.$space-xl;
+}
+
+.page-user-form__title {
+  margin-top: 0;
+  margin-bottom: v.$space-md;
+}
+
+.page-user-form__breadcrumb {
+  font-size: v.$font-size-sm;
+  color: v.$text-secondary;
+  margin-bottom: v.$space-md;
+}

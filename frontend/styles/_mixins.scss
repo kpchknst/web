@@ -1,0 +1,42 @@
+// _mixins.scss — reusable @mixin helpers.
+// Spec rule: "Use mixins where you can (at least in one place)." This file defines four.
+
+@use "variables" as v;
+
+// 1. Responsive breakpoint helper.
+//    Usage: @include respond-to(md) { ... }
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == sm {
+    @media (min-width: v.$bp-sm) { @content; }
+  } @else if $breakpoint == md {
+    @media (min-width: v.$bp-md) { @content; }
+  } @else if $breakpoint == lg {
+    @media (min-width: v.$bp-lg) { @content; }
+  } @else if $breakpoint == xl {
+    @media (min-width: v.$bp-xl) { @content; }
+  } @else {
+    @error "Unknown breakpoint: #{$breakpoint}";
+  }
+}
+
+// 2. Card-style surface — used on article tiles, user rows, edit-queue items.
+@mixin card-surface {
+  background: v.$bg-surface;
+  border: 1px solid v.$border-subtle;
+  border-radius: v.$radius-md;
+  box-shadow: v.$shadow-soft;
+  transition: box-shadow v.$transition-base, transform v.$transition-base;
+}
+
+// 3. Single-line ellipsis for headings & nav items.
+@mixin truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// 4. Focus ring — used on interactive elements for keyboard accessibility.
+@mixin focus-ring {
+  outline: none;
+  box-shadow: v.$shadow-focus;
+}
