@@ -49,7 +49,7 @@ If the teacher's machine has no internet during the demo, set `USE_SQLITE=1` in 
 | GET | `/articles` | public | List articles (search, tag filter) |
 | GET | `/articles/:slug` | public | Read one article |
 | POST/PUT/DELETE | `/articles*` | admin | Manage articles directly |
-| POST | `/articles/:id/edits` | regular+ | Propose an edit |
+| POST | `/articles/:slug/edits` | regular+ | Propose an edit |
 | GET | `/edits?status=pending` | admin | Moderation queue |
 | POST | `/edits/:id/approve` | admin | Approve an edit |
 | POST | `/edits/:id/reject` | admin | Reject an edit |

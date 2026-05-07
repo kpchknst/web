@@ -66,9 +66,11 @@ web/
 │   └── lab{0..6}-report.md         # what was done, for the teacher
 ├── LAB{0..6}.md                    # quick-start per lab (in repo root)
 ├── README.md
-├── .gitignore
-└── .env.example                    # symlink/copy to backend/.env.example
+└── .gitignore
 ```
+
+(The only `.env.example` lives in `backend/`, since secrets are backend-only.)
+
 
 **Tech stack:**
 
@@ -78,7 +80,7 @@ web/
 | Backend framework | FastAPI + Uvicorn | Async, auto-Swagger at `/docs`, Pydantic validation |
 | ORM | SQLAlchemy 2.x | Standard, works with any Postgres |
 | Database | **Supabase Postgres** (hosted) | User requested; real Postgres without local install |
-| Auth | JWT via `python-jose` + `passlib[bcrypt]` | Lightweight, no extra service |
+| Auth | JWT via `python-jose` + direct `bcrypt` calls | Lightweight, no extra service. Originally specified `passlib[bcrypt]` but passlib 1.7.4 is incompatible with bcrypt ≥ 5.0; dropping passlib is simpler than pinning bcrypt downwards. |
 | Frontend Lab 1 | HTML5 + SCSS | Spec mandates SCSS, no JS in Lab 1 |
 | Frontend Lab 2 | + vanilla JS (`fetch`) + ESLint Airbnb | Spec mandates pure JS, no jQuery, ESLint |
 | Frontend Lab 3+ | Vite + React 18 + React Router v6 | Smallest learning curve, fastest dev server |

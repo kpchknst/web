@@ -155,6 +155,8 @@ Helpers: `hash_password`, `verify_password`, `create_access_token`, `decode_toke
 
 One file per resource (`auth.py`, `users.py`, `articles.py`, `edits.py`, `ws.py`). Each is ≤ 75 lines per endpoint and ≤ 400 lines per file. The `ws.py` file is created in Lab 6 — leave a stub for now.
 
+> Note on `edits.py`: it is included **without a prefix** (see Step 5g) because its routes split across two URL roots — `/articles/{slug}/edits` (proposing) and `/edits/{id}/...` plus `/me/edits` (listing & moderating). Each route declares its full path inside `edits.py`.
+
 ### 5g. `backend/app/main.py` — entry point
 
 ```python
@@ -265,7 +267,7 @@ When all eight boxes are ticked, write `docs/lab0-report.md` (template already d
 | Symptom | Fix |
 |---|---|
 | `psycopg.OperationalError: connection failed` | Wrong port or wrong password in `DATABASE_URL`. The Session pooler is on **5432**; the Direct connection is on **6543**. Use the pooler. |
-| `bcrypt` build fails on Apple Silicon | `pip install --upgrade bcrypt && pip install --no-cache passlib[bcrypt]` |
+| `bcrypt` build fails on Apple Silicon | `pip install --upgrade bcrypt` (we use `bcrypt` directly — `passlib` was dropped because its 1.7.4 release is incompatible with bcrypt ≥ 5.0) |
 | `CORS` error in browser when frontend calls `/api/*` | Add `http://localhost:8000` to `CORS_ORIGINS` in `.env` |
 | Supabase "max connections" | You used the Direct connection; switch to the Session pooler |
 | Want to demo offline | Set `USE_SQLITE=1` in `.env`, rerun `python -m app.seed` |
