@@ -1,8 +1,8 @@
 # AI-generated stone illustrations
 
-This folder is where the **≥ 5 AI-generated stone images** required by Lab 1 (worth 2 of the 10 graded points) live.
+This folder holds the **10 AI-generated stone images** required by Lab 1 (worth 2 of the 10 graded points). All ten are present and live on the homepage cards (`index.html`) and the article-reader hero (`article.html`).
 
-Until real images are added, the homepage and article-reader pages render coloured CSS gradients as placeholders (see `.card__thumb--<slug>` rules in `frontend/styles/components/_card.scss`). When you drop a real image here with the matching filename, you can swap the placeholder `<div class="card__thumb">` in the relevant HTML file for an `<img>` tag.
+The full credit, prompt, and per-stone *why kept* notes live in [`docs/lab1-report.md`](../../../../docs/lab1-report.md#ai-generated-assets-worth-2-of-10-pts) — that's the file the teacher reads.
 
 ## Required filenames
 

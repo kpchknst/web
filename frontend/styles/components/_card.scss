@@ -43,13 +43,17 @@
   border-top: 1px solid v.$border-subtle;
 }
 
-// the colored-thumbnail placeholder shown in lieu of an AI-generated image
+// works as both a gradient placeholder div and an <img> with object-fit
 .card__thumb {
+  display: block;
+  width: 100%;
   height: 160px;
   border-radius: v.$radius-md;
   background: linear-gradient(135deg, v.$rose-quartz, v.$amethyst);
   position: relative;
   overflow: hidden;
+  object-fit: cover;
+  object-position: center;
 }
 
 .card__thumb::after {

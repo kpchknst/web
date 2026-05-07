@@ -24,14 +24,14 @@
   <main class="page-main">
     <div class="container">
 
-      <section class="page-user-detail" aria-labelledby="user-detail-title">
+      <div class="page-user-detail">
         <p class="page-user-form__breadcrumb"><a href="users.html">Users</a> / maria</p>
 
-        <article class="page-user-detail__card">
+        <article class="page-user-detail__card" aria-labelledby="user-detail-title">
           <div class="page-user-detail__header">
             <div class="page-user-detail__avatar" aria-hidden="true">M</div>
             <div>
-              <h1 id="user-detail-title" style="margin: 0;">maria</h1>
+              <h1 id="user-detail-title" class="page-user-detail__name">maria</h1>
               <span class="badge badge--role-regular">regular</span>
             </div>
           </div>
@@ -56,7 +56,7 @@
             <button type="button" class="btn btn--danger">Delete user</button>
           </div>
         </article>
-      </section>
+      </div>
 
     </div>
   </main>
