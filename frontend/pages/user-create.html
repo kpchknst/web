@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Create a new user account.">
+  <title>Stones &amp; Scents — Create user</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+<div class="site-shell">
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-header__logo" href="index.html">Stones &amp; Scents</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a class="site-nav__link" href="index.html">Home</a>
+        <a class="site-nav__link" href="users.html">Users</a>
+        <a class="site-nav__link" href="moderation.html">Moderation</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <div class="container">
+
+      <section class="page-user-form" aria-labelledby="create-user-title">
+        <div class="page-user-form__card">
+          <p class="page-user-form__breadcrumb"><a href="users.html">Users</a> / Create user</p>
+          <h1 id="create-user-title" class="page-user-form__title">Create user</h1>
+
+          <form class="form" action="#" method="post" novalidate>
+            <div class="form-field">
+              <label class="form-field__label form-field__label--required" for="create-username">Username</label>
+              <input class="form-input" id="create-username" type="text" name="username" minlength="3" maxlength="50" required>
+              <p class="form-field__hint">3 to 50 characters; letters, digits, underscore, hyphen.</p>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label form-field__label--required" for="create-password">Password</label>
+              <input class="form-input" id="create-password" type="password" name="password" minlength="6" required>
+              <p class="form-field__hint">At least 6 characters.</p>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label form-field__label--required" for="create-confirm">Confirm password</label>
+              <input class="form-input" id="create-confirm" type="password" name="confirm" minlength="6" required>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label" for="create-role">Role</label>
+              <select class="form-select" id="create-role" name="role">
+                <option value="regular" selected>regular</option>
+                <option value="admin">admin</option>
+              </select>
+              <p class="form-field__hint">Only an admin can promote a user to the admin role.</p>
+            </div>
+
+            <div class="form-actions">
+              <a class="btn btn--secondary" href="users.html">Cancel</a>
+              <button type="submit" class="btn btn--primary">OK</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>Stones &amp; Scents Encyclopedia · Lab 1 · <a href="https://github.com/kpchknst/web">github.com/kpchknst/web</a></small>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

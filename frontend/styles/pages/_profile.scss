@@ -1,0 +1,67 @@
+// _profile.scss — user's own edit history.
+
+@use "../variables" as v;
+@use "../mixins" as m;
+
+.page-profile__header {
+  margin-bottom: v.$space-lg;
+}
+
+.page-profile__title {
+  margin: 0 0 v.$space-xs 0;
+}
+
+.page-profile__subtitle {
+  color: v.$text-secondary;
+  font-size: v.$font-size-sm;
+  margin: 0;
+}
+
+.page-profile__edits {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-md;
+}
+
+.edit-row {
+  @include m.card-surface;
+  padding: v.$space-md;
+  display: grid;
+  gap: v.$space-sm;
+  grid-template-columns: 1fr;
+
+  @include m.respond-to(md) {
+    grid-template-columns: 1fr auto;
+    align-items: start;
+  }
+}
+
+.edit-row__title {
+  margin: 0;
+  font-size: v.$font-size-base;
+  font-family: v.$font-sans;
+  font-weight: v.$font-weight-bold;
+}
+
+.edit-row__meta {
+  font-size: v.$font-size-xs;
+  color: v.$text-muted;
+  margin-top: v.$space-xs;
+}
+
+.edit-row__excerpt {
+  font-size: v.$font-size-sm;
+  color: v.$text-secondary;
+  margin: v.$space-xs 0 0 0;
+}
+
+.edit-row__rejection {
+  font-size: v.$font-size-sm;
+  color: v.$color-danger;
+  margin: v.$space-xs 0 0 0;
+  font-style: italic;
+}
+
+.edit-row__status {
+  align-self: start;
+}

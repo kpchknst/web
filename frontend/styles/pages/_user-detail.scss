@@ -1,0 +1,53 @@
+// _user-detail.scss — user profile card.
+
+@use "../variables" as v;
+@use "../mixins" as m;
+
+.page-user-detail__card {
+  @include m.card-surface;
+  padding: v.$space-xl;
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-md;
+}
+
+.page-user-detail__header {
+  display: flex;
+  align-items: center;
+  gap: v.$space-md;
+  padding-bottom: v.$space-md;
+  border-bottom: 1px solid v.$border-subtle;
+}
+
+.page-user-detail__avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: v.$amethyst;
+  color: v.$text-inverse;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: v.$font-size-xl;
+  font-weight: v.$font-weight-bold;
+}
+
+.page-user-detail__info dt {
+  font-size: v.$font-size-xs;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: v.$text-muted;
+  margin-top: v.$space-sm;
+}
+
+.page-user-detail__info dd {
+  margin: v.$space-xs 0 0 0;
+  font-size: v.$font-size-base;
+  color: v.$text-primary;
+}
+
+.page-user-detail__actions {
+  display: flex;
+  gap: v.$space-sm;
+  margin-top: v.$space-md;
+}

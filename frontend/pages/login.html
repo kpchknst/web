@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Log in to the Stones &amp; Scents Encyclopedia.">
+  <title>Stones &amp; Scents — Log in</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+<div class="site-shell">
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-header__logo" href="index.html">Stones &amp; Scents</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a class="site-nav__link" href="index.html">Home</a>
+        <a class="site-nav__link site-nav__link--active" href="login.html">Log in</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <div class="container">
+
+      <section class="page-login" aria-labelledby="login-title">
+        <div class="page-login__card">
+          <h1 id="login-title" class="page-login__title">Welcome back</h1>
+          <p class="page-login__subtitle">Sign in to propose article edits or moderate the queue.</p>
+
+          <!-- form is static (Lab 1 has no JS); action="#" prevents accidental submission -->
+          <form class="form" action="#" method="post" novalidate>
+            <div class="form-field">
+              <label class="form-field__label form-field__label--required" for="login-username">Username</label>
+              <input class="form-input" id="login-username" type="text" name="username" autocomplete="username" required>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label form-field__label--required" for="login-password">Password</label>
+              <input class="form-input" id="login-password" type="password" name="password" autocomplete="current-password" required>
+              <p class="form-field__hint">Forgot your password? Talk to an admin.</p>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn--primary btn--block">Log in</button>
+            </div>
+          </form>
+
+          <div class="page-login__footer">
+            Don&apos;t have an account? <a href="user-create.html">Create one</a>.
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>Stones &amp; Scents Encyclopedia · Lab 1 · <a href="https://github.com/kpchknst/web">github.com/kpchknst/web</a></small>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

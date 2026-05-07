@@ -1,0 +1,106 @@
+// _users.scss — user listing table and admin actions.
+
+@use "../variables" as v;
+@use "../mixins" as m;
+
+.page-users__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: v.$space-md;
+  margin-bottom: v.$space-lg;
+}
+
+.page-users__title {
+  margin: 0;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: v.$bg-surface;
+  border: 1px solid v.$border-subtle;
+  border-radius: v.$radius-md;
+  overflow: hidden;
+  box-shadow: v.$shadow-soft;
+}
+
+.user-table th,
+.user-table td {
+  padding: v.$space-sm v.$space-md;
+  text-align: left;
+  border-bottom: 1px solid v.$border-subtle;
+  font-size: v.$font-size-sm;
+}
+
+.user-table th {
+  background: v.$bg-muted;
+  font-weight: v.$font-weight-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: v.$font-size-xs;
+  color: v.$text-secondary;
+}
+
+.user-table tr:last-child td {
+  border-bottom: none;
+}
+
+.user-table tr:hover td {
+  background: v.$bg-elevated;
+}
+
+.user-table__actions {
+  display: flex;
+  gap: v.$space-xs;
+  justify-content: flex-end;
+}
+
+.user-table__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: v.$amethyst;
+  color: v.$text-inverse;
+  font-weight: v.$font-weight-bold;
+  font-size: v.$font-size-sm;
+}
+
+.user-table__avatar--admin { background: v.$amethyst-deep; }
+.user-table__avatar--regular { background: v.$aventurine; }
+
+.user-table__cell--name {
+  display: flex;
+  align-items: center;
+  gap: v.$space-sm;
+  font-weight: v.$font-weight-medium;
+  color: v.$text-primary;
+}
+
+// Mobile-friendly stacking on narrow screens
+@media (max-width: v.$bp-md) {
+  .user-table thead { display: none; }
+  .user-table tr {
+    display: block;
+    margin-bottom: v.$space-sm;
+    border-radius: v.$radius-md;
+    border: 1px solid v.$border-subtle;
+    padding: v.$space-sm;
+  }
+  .user-table td {
+    display: flex;
+    justify-content: space-between;
+    border: none;
+    padding: v.$space-xs 0;
+  }
+  .user-table td::before {
+    content: attr(data-label);
+    font-weight: v.$font-weight-bold;
+    color: v.$text-secondary;
+    margin-right: v.$space-md;
+  }
+}

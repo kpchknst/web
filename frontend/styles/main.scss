@@ -1,0 +1,33 @@
+// main.scss — single SCSS entry point compiled into pages/styles/main.css.
+//
+// Order matters: foundations (variables, mixins, reset, typography) load first,
+// then components, then per-page partials. This keeps the cascade predictable
+// and prevents accidental specificity wars.
+
+// Foundations
+@use "variables";
+@use "mixins";
+@use "reset";
+@use "typography";
+
+// Components
+@use "components/layout";
+@use "components/navigation";
+@use "components/buttons";
+@use "components/forms";
+@use "components/alerts";
+@use "components/modals";
+@use "components/card";
+@use "components/badge";
+
+// Pages
+@use "pages/home";
+@use "pages/login";
+@use "pages/users";
+@use "pages/user-form";
+@use "pages/user-detail";
+@use "pages/article";
+@use "pages/article-editor";
+@use "pages/moderation";
+@use "pages/profile";
+@use "pages/error-states";

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Propose an edit to a Stones &amp; Scents article.">
+  <title>Stones &amp; Scents — Propose edit</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+<div class="site-shell">
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-header__logo" href="index.html">Stones &amp; Scents</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a class="site-nav__link" href="index.html">Home</a>
+        <a class="site-nav__link" href="profile.html">My profile</a>
+        <span class="site-nav__user">
+          <span class="badge badge--role-regular">regular</span>
+          <a class="btn btn--secondary btn--small" href="login.html">Log out</a>
+        </span>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <div class="container">
+
+      <section class="page-editor" aria-labelledby="editor-title">
+
+        <p class="page-user-form__breadcrumb"><a href="index.html">Articles</a> / <a href="article.html">Rose Quartz</a> / Propose edit</p>
+        <h1 id="editor-title" class="page-editor__title">Propose an edit</h1>
+
+        <!-- Variant 5 edit-conflict warning, rendered statically -->
+        <div class="alert alert--warning page-editor__warning" role="alert">
+          <span class="alert__icon" aria-hidden="true">⚠</span>
+          <div>
+            <p class="alert__title">1 pending edit is already ahead of yours</p>
+            <p class="alert__body">
+              <strong>maria</strong> submitted an edit to this article 4 minutes ago. If a moderator approves maria&apos;s edit before yours, the moderator will see that your version may need rebasing.
+              <a href="#pending-preview">See pending edit ↓</a>
+            </p>
+          </div>
+        </div>
+
+        <form class="form page-editor__form" action="#" method="post" novalidate>
+
+          <div class="form-field">
+            <label class="form-field__label form-field__label--required" for="edit-title">Title</label>
+            <input class="form-input" id="edit-title" type="text" name="proposed_title" value="Rose Quartz" required maxlength="200">
+          </div>
+
+          <div class="form-field">
+            <label class="form-field__label form-field__label--required" for="edit-content">Article body</label>
+            <textarea class="form-textarea" id="edit-content" name="proposed_content" required maxlength="2000">Rose quartz is a translucent pink variety of quartz, coloured by trace amounts of titanium, iron, or manganese. Its hardness on the Mohs scale is 7, the same as all macrocrystalline quartz, which makes it durable enough for jewellery and decorative carvings. Major deposits are mined in Brazil, Madagascar, and South Dakota.
+
+Across cultures rose quartz is regarded as the stone of unconditional love. Ancient Romans believed it could prevent the souring of relationships, and ancient Egyptians used rose-quartz facial masks for their reputed beauty-preserving properties.
+
+Perfume pairing: rose-forward fragrances. Try Tom Ford Rose Prick for a fresh, thorny rose, Jo Malone Velvet Rose &amp; Oud for a deeper resinous take, or Frédéric Malle Une Rose for an unsweetened, almost wine-like rose absolute.</textarea>
+            <div class="form-counter">
+              <p class="form-field__hint">Markdown not supported. Plain text only.</p>
+              <span><strong class="form-counter__value">872</strong> / 2000 characters</span>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label class="form-field__label" for="edit-cover">Cover image URL (optional)</label>
+            <input class="form-input" id="edit-cover" type="url" name="cover_image_url" placeholder="https://…">
+          </div>
+
+          <div class="form-field">
+            <label class="form-field__label" for="edit-base">Base version</label>
+            <input class="form-input" id="edit-base" type="number" name="base_version" value="1" readonly>
+            <p class="form-field__hint">The version of the article you started editing. Used to detect concurrent edits.</p>
+          </div>
+
+          <div class="form-actions">
+            <a class="btn btn--secondary" href="article.html">Cancel</a>
+            <button type="submit" class="btn btn--primary">Submit for review</button>
+          </div>
+        </form>
+
+        <!-- preview of the existing pending edit, referenced by the warning above -->
+        <article class="page-editor__pending-preview" id="pending-preview" aria-labelledby="pending-preview-title">
+          <h4 id="pending-preview-title">maria&apos;s pending edit (preview)</h4>
+          <p class="card__meta">Submitted 2026-05-07 14:18 · base version 1</p>
+          <p class="card__body">Rose quartz is a translucent pink quartz, coloured by trace titanium and iron. It is the most popular variety of pink quartz on the market today. Mohs hardness is 7. Pairs with rose-forward perfumes such as Frédéric Malle Une Rose...</p>
+        </article>
+
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>Stones &amp; Scents Encyclopedia · Lab 1 · <a href="https://github.com/kpchknst/web">github.com/kpchknst/web</a></small>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

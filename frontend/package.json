@@ -1,0 +1,14 @@
+{
+  "name": "stones-and-scents-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static layout for the Stones & Scents Encyclopedia (Lab 1: HTML5 + SCSS, no JS).",
+  "scripts": {
+    "scss": "sass --no-source-map --style=compressed styles/main.scss pages/styles/main.css",
+    "scss:watch": "sass --watch styles/main.scss:pages/styles/main.css",
+    "scss:expanded": "sass --no-source-map --style=expanded styles/main.scss pages/styles/main.css"
+  },
+  "devDependencies": {
+    "sass": "^1.79.0"
+  }
+}

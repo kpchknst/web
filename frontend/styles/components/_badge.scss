@@ -1,0 +1,38 @@
+// _badge.scss — pill-shaped tags for roles, statuses, and article tags.
+
+@use "../variables" as v;
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: v.$space-xs;
+  padding: 2px v.$space-sm;
+  border-radius: v.$radius-pill;
+  font-size: v.$font-size-xs;
+  font-weight: v.$font-weight-medium;
+  background: v.$bg-muted;
+  color: v.$text-secondary;
+  border: 1px solid v.$border-subtle;
+}
+
+.badge--role-admin {
+  background: v.$amethyst;
+  color: v.$text-inverse;
+  border-color: v.$amethyst-deep;
+}
+
+.badge--role-regular {
+  background: v.$bg-elevated;
+  color: v.$text-secondary;
+}
+
+.badge--status-pending  { background: v.$color-warning-bg; color: v.$citrine-deep; border-color: v.$citrine-deep; }
+.badge--status-approved { background: v.$color-success-bg; color: v.$aventurine-deep; border-color: v.$aventurine; }
+.badge--status-rejected { background: v.$color-danger-bg;  color: v.$color-danger;  border-color: v.$color-danger; }
+.badge--status-stale    { background: v.$bg-muted;        color: v.$text-secondary; border-color: v.$border-strong; }
+
+.badge--tag {
+  background: v.$selenite;
+  color: v.$amethyst-deep;
+  border-color: v.$amethyst;
+}
