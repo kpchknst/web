@@ -1,0 +1,99 @@
+// _forms.scss — form fields, labels, inline errors.
+
+@use "../variables" as v;
+@use "../mixins" as m;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-md;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-xs;
+}
+
+.form-field__label {
+  font-size: v.$font-size-sm;
+  font-weight: v.$font-weight-medium;
+  color: v.$text-primary;
+}
+
+.form-field__label--required::after {
+  content: " *";
+  color: v.$color-danger;
+}
+
+.form-field__hint {
+  font-size: v.$font-size-xs;
+  color: v.$text-muted;
+}
+
+.form-field__error {
+  font-size: v.$font-size-xs;
+  color: v.$color-danger;
+  font-weight: v.$font-weight-medium;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  padding: v.$space-sm v.$space-md;
+  border: 1px solid v.$border-strong;
+  border-radius: v.$radius-sm;
+  background: v.$bg-surface;
+  color: v.$text-primary;
+  font-size: v.$font-size-base;
+  transition: border-color v.$transition-base, box-shadow v.$transition-base;
+}
+
+.form-input:hover,
+.form-textarea:hover,
+.form-select:hover {
+  border-color: v.$amethyst;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  @include m.focus-ring;
+  border-color: v.$amethyst;
+}
+
+.form-input--invalid,
+.form-textarea--invalid {
+  border-color: v.$color-danger;
+}
+
+.form-textarea {
+  min-height: 200px;
+  resize: vertical;
+  line-height: 1.5;
+  font-family: v.$font-sans;
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.$space-sm;
+  justify-content: flex-end;
+  margin-top: v.$space-md;
+}
+
+.form-actions--start {
+  justify-content: flex-start;
+}
+
+// counter (e.g. for the 2000-char article body)
+.form-counter {
+  display: flex;
+  justify-content: space-between;
+  font-size: v.$font-size-xs;
+  color: v.$text-muted;
+}
+
+.form-counter__value--warn { color: v.$citrine-deep; }
+.form-counter__value--over { color: v.$color-danger; font-weight: v.$font-weight-bold; }

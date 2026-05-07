@@ -1,0 +1,35 @@
+// _article-editor.scss — propose-edit / new-article form.
+
+@use "../variables" as v;
+@use "../mixins" as m;
+
+.page-editor {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.page-editor__title {
+  margin-top: 0;
+}
+
+.page-editor__warning {
+  margin-bottom: v.$space-lg;
+}
+
+.page-editor__form {
+  @include m.card-surface;
+  padding: v.$space-xl;
+}
+
+.page-editor__pending-preview {
+  @include m.card-surface;
+  padding: v.$space-md;
+  margin-top: v.$space-md;
+  background: v.$color-warning-bg;
+  border-color: v.$citrine-deep;
+}
+
+.page-editor__pending-preview h4 {
+  margin: 0 0 v.$space-xs 0;
+  color: v.$citrine-deep;
+}

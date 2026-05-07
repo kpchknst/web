@@ -1,0 +1,22 @@
+// _error-states.scss — showcase page that renders every alert + every validation example.
+
+@use "../variables" as v;
+
+.page-errors__section {
+  margin-bottom: v.$space-xl;
+}
+
+.page-errors__section-title {
+  font-family: v.$font-sans;
+  font-size: v.$font-size-base;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: v.$text-muted;
+  margin: 0 0 v.$space-md 0;
+}
+
+.page-errors__alerts {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-md;
+}

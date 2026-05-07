@@ -1,0 +1,40 @@
+// _login.scss — centered card layout for the login screen.
+
+@use "../variables" as v;
+@use "../mixins" as m;
+
+.page-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.page-login__card {
+  @include m.card-surface;
+  width: 100%;
+  max-width: 400px;
+  padding: v.$space-xl;
+}
+
+.page-login__title {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: v.$space-md;
+}
+
+.page-login__subtitle {
+  text-align: center;
+  color: v.$text-secondary;
+  font-size: v.$font-size-sm;
+  margin-bottom: v.$space-lg;
+}
+
+.page-login__footer {
+  margin-top: v.$space-lg;
+  padding-top: v.$space-md;
+  border-top: 1px solid v.$border-subtle;
+  text-align: center;
+  font-size: v.$font-size-sm;
+  color: v.$text-secondary;
+}

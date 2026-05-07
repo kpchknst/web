@@ -1,0 +1,92 @@
+// _navigation.scss — top site header + primary navigation.
+
+@use "../variables" as v;
+@use "../mixins" as m;
+
+.site-header {
+  background: v.$bg-surface;
+  border-bottom: 1px solid v.$border-subtle;
+  box-shadow: v.$shadow-soft;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: v.$header-height;
+  gap: v.$space-md;
+}
+
+.site-header__logo {
+  font-family: v.$font-serif;
+  font-size: v.$font-size-lg;
+  font-weight: v.$font-weight-bold;
+  color: v.$amethyst-deep;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-header__logo:hover {
+  color: v.$amethyst;
+  text-decoration: none;
+}
+
+.site-nav {
+  display: none;
+  align-items: center;
+  gap: v.$space-md;
+
+  @include m.respond-to(md) {
+    display: flex;
+  }
+}
+
+.site-nav__link {
+  color: v.$text-secondary;
+  font-size: v.$font-size-sm;
+  font-weight: v.$font-weight-medium;
+  padding: v.$space-xs v.$space-sm;
+  border-radius: v.$radius-sm;
+  transition: color v.$transition-base, background v.$transition-base;
+  text-decoration: none;
+}
+
+.site-nav__link:hover,
+.site-nav__link:focus {
+  color: v.$amethyst-deep;
+  background: v.$bg-muted;
+  text-decoration: none;
+}
+
+.site-nav__link--active {
+  color: v.$amethyst-deep;
+  background: v.$bg-muted;
+}
+
+.site-nav__user {
+  display: flex;
+  align-items: center;
+  gap: v.$space-sm;
+  padding-left: v.$space-md;
+  border-left: 1px solid v.$border-subtle;
+}
+
+// Mobile-only minimal nav: visible always, just a "menu" indicator
+.site-header__menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: v.$space-xs;
+  padding: v.$space-sm;
+  background: none;
+  border: 1px solid v.$border-subtle;
+  border-radius: v.$radius-sm;
+  font-size: v.$font-size-sm;
+  color: v.$text-secondary;
+
+  @include m.respond-to(md) {
+    display: none;
+  }
+}

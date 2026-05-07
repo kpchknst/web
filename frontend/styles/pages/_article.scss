@@ -1,0 +1,89 @@
+// _article.scss — single-article reader.
+
+@use "../variables" as v;
+@use "../mixins" as m;
+
+.page-article {
+  display: grid;
+  gap: v.$space-xl;
+
+  @include m.respond-to(lg) {
+    grid-template-columns: 1fr 280px;
+  }
+}
+
+.page-article__main {
+  min-width: 0;
+}
+
+.page-article__breadcrumb {
+  font-size: v.$font-size-sm;
+  color: v.$text-secondary;
+  margin-bottom: v.$space-md;
+}
+
+.page-article__title {
+  font-size: v.$font-size-display;
+  margin: 0 0 v.$space-sm 0;
+  color: v.$amethyst-deep;
+}
+
+.page-article__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.$space-sm;
+  align-items: center;
+  font-size: v.$font-size-sm;
+  color: v.$text-secondary;
+  margin-bottom: v.$space-md;
+}
+
+.page-article__hero {
+  height: 320px;
+  border-radius: v.$radius-lg;
+  margin-bottom: v.$space-lg;
+  background: linear-gradient(135deg, v.$rose-quartz, v.$amethyst-deep);
+  position: relative;
+  overflow: hidden;
+}
+
+.page-article__hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), transparent 60%);
+}
+
+.page-article__body p {
+  font-size: v.$font-size-lg;
+  line-height: 1.7;
+  color: v.$text-primary;
+}
+
+.page-article__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.$space-xs;
+  margin-top: v.$space-lg;
+  padding-top: v.$space-md;
+  border-top: 1px solid v.$border-subtle;
+}
+
+.page-article__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-md;
+}
+
+.page-article__sidebar-card {
+  @include m.card-surface;
+  padding: v.$space-md;
+}
+
+.page-article__sidebar-title {
+  font-size: v.$font-size-sm;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: v.$text-muted;
+  margin: 0 0 v.$space-sm 0;
+}

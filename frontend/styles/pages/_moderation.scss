@@ -1,0 +1,106 @@
+// _moderation.scss — admin queue with side-by-side diff.
+
+@use "../variables" as v;
+@use "../mixins" as m;
+
+.page-moderation__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: v.$space-md;
+  margin-bottom: v.$space-lg;
+}
+
+.page-moderation__title {
+  margin: 0;
+}
+
+.page-moderation__queue-summary {
+  font-size: v.$font-size-sm;
+  color: v.$text-secondary;
+}
+
+.queue-item {
+  @include m.card-surface;
+  padding: v.$space-md;
+  margin-bottom: v.$space-md;
+}
+
+.queue-item__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: v.$space-sm;
+  margin-bottom: v.$space-md;
+  padding-bottom: v.$space-sm;
+  border-bottom: 1px solid v.$border-subtle;
+}
+
+.queue-item__title {
+  margin: 0;
+  font-size: v.$font-size-base;
+  font-family: v.$font-sans;
+  font-weight: v.$font-weight-bold;
+}
+
+.queue-item__meta {
+  font-size: v.$font-size-xs;
+  color: v.$text-muted;
+}
+
+.queue-item__diff {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: v.$space-md;
+
+  @include m.respond-to(md) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.queue-item__diff-pane {
+  background: v.$bg-page;
+  padding: v.$space-md;
+  border-radius: v.$radius-md;
+  border: 1px solid v.$border-subtle;
+  font-size: v.$font-size-sm;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.queue-item__diff-pane h4 {
+  margin: 0 0 v.$space-xs 0;
+  font-size: v.$font-size-xs;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: v.$text-muted;
+}
+
+.queue-item__diff-pane--current {
+  border-left: 3px solid v.$color-info;
+}
+
+.queue-item__diff-pane--proposed {
+  border-left: 3px solid v.$color-success;
+}
+
+.diff-add {
+  background: v.$color-success-bg;
+  text-decoration: none;
+}
+
+.diff-remove {
+  background: v.$color-danger-bg;
+  text-decoration: line-through;
+}
+
+.queue-item__actions {
+  display: flex;
+  gap: v.$space-sm;
+  justify-content: flex-end;
+  margin-top: v.$space-md;
+  padding-top: v.$space-md;
+  border-top: 1px solid v.$border-subtle;
+}

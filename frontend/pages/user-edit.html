@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Edit a user account.">
+  <title>Stones &amp; Scents — Edit user</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+<div class="site-shell">
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-header__logo" href="index.html">Stones &amp; Scents</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a class="site-nav__link" href="index.html">Home</a>
+        <a class="site-nav__link" href="users.html">Users</a>
+        <a class="site-nav__link" href="moderation.html">Moderation</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <div class="container">
+
+      <section class="page-user-form" aria-labelledby="edit-user-title">
+        <div class="page-user-form__card">
+          <p class="page-user-form__breadcrumb"><a href="users.html">Users</a> / <a href="user-detail.html">maria</a> / Edit</p>
+          <h1 id="edit-user-title" class="page-user-form__title">Edit user</h1>
+
+          <form class="form" action="#" method="post" novalidate>
+            <div class="form-field">
+              <label class="form-field__label form-field__label--required" for="edit-username">Username</label>
+              <input class="form-input" id="edit-username" type="text" name="username" value="maria" minlength="3" maxlength="50" required>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label" for="edit-password">New password</label>
+              <input class="form-input" id="edit-password" type="password" name="password" minlength="6" placeholder="leave blank to keep current">
+              <p class="form-field__hint">Leave blank to keep the existing password.</p>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label" for="edit-confirm">Confirm new password</label>
+              <input class="form-input form-input--invalid" id="edit-confirm" type="password" name="confirm" minlength="6" placeholder="must match the new password">
+              <p class="form-field__error">Passwords do not match.</p>
+            </div>
+
+            <div class="form-field">
+              <label class="form-field__label" for="edit-role">Role</label>
+              <select class="form-select" id="edit-role" name="role">
+                <option value="regular" selected>regular</option>
+                <option value="admin">admin</option>
+              </select>
+            </div>
+
+            <div class="form-actions">
+              <a class="btn btn--secondary" href="user-detail.html">Cancel</a>
+              <button type="submit" class="btn btn--primary">Save changes</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small>Stones &amp; Scents Encyclopedia · Lab 1 · <a href="https://github.com/kpchknst/web">github.com/kpchknst/web</a></small>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

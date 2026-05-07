@@ -1,0 +1,63 @@
+// _modals.scss — dialog overlays.
+// Lab 1 has no JS, so modals here are rendered as visible static blocks
+// on dedicated pages (user-create.html, etc.) so the layout can be reviewed.
+
+@use "../variables" as v;
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(44, 31, 51, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: v.$space-md;
+  z-index: 30;
+}
+
+.modal {
+  background: v.$bg-surface;
+  border-radius: v.$radius-lg;
+  box-shadow: v.$shadow-strong;
+  max-width: 500px;
+  width: 100%;
+  padding: v.$space-lg;
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-md;
+}
+
+.modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: v.$space-md;
+  padding-bottom: v.$space-sm;
+  border-bottom: 1px solid v.$border-subtle;
+}
+
+.modal__title {
+  margin: 0;
+  font-family: v.$font-serif;
+  font-size: v.$font-size-xl;
+}
+
+.modal__close {
+  background: none;
+  border: none;
+  font-size: v.$font-size-lg;
+  color: v.$text-secondary;
+  padding: v.$space-xs;
+  border-radius: v.$radius-sm;
+}
+
+.modal__close:hover {
+  color: v.$color-danger;
+  background: v.$bg-muted;
+}
+
+.modal__body {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-md;
+}

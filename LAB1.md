@@ -17,7 +17,7 @@ The 11 screens cover both Lab 1's mandatory user-management section and Variant 
 # from the repo root
 cd frontend
 npm install              # installs Dart Sass (the only dependency)
-npm run scss             # compiles styles/main.scss → styles/dist/main.css
+npm run scss             # compiles styles/main.scss → pages/styles/main.css
 ```
 
 ## Run locally
@@ -61,30 +61,30 @@ It writes a fresh `frontend/styles/dist/main.css`. The `frontend/styles/main.scs
 
 ```
 frontend/
-├── pages/                    # 11 HTML files — one per screen
+├── package.json              # `npm run scss`, `npm run scss:watch`
+├── pages/                    # everything that gets deployed lives in here
 │   ├── index.html            # / (article listing — homepage)
 │   ├── login.html            # /login
 │   ├── users.html            # /users (admin sees all; regular sees self)
+│   ├── user-create.html      # /users/new (form, the spec's "create user dialog")
 │   ├── user-detail.html      # /users/:id
 │   ├── user-edit.html        # /users/:id/edit
-│   ├── user-create.html      # /users/new (modal mock)
 │   ├── article.html          # /articles/:slug
 │   ├── article-editor.html   # /articles/new and /articles/:slug/edit
 │   ├── moderation.html       # /moderation
 │   ├── profile.html          # /profile
-│   └── error-states.html     # showcase of validation + error notifications
-├── styles/
-│   ├── _variables.scss       # ALL colours live here (per spec rule)
-│   ├── _mixins.scss          # ≥ 1 mixin (responsive breakpoint helper)
-│   ├── _reset.scss
-│   ├── _typography.scss
-│   ├── components/           # button, form, modal, nav, alert partials
-│   ├── pages/                # per-page partials
-│   ├── main.scss             # imports everything
-│   └── dist/main.css         # compiled output (committed for GH Pages)
-├── assets/
-│   └── stones/               # ≥ 5 AI-generated stone illustrations
-└── package.json              # `npm run scss`, `npm run scss:watch`
+│   ├── error-states.html     # showcase of validation + error notifications
+│   ├── styles/main.css       # compiled SCSS output (committed so file:// preview works)
+│   ├── assets/stones/        # ≥ 5 AI-generated stone illustrations (+ README)
+│   └── .nojekyll             # disables Jekyll on GH Pages
+└── styles/                   # SCSS source — NOT deployed
+    ├── _variables.scss       # ALL colours live here (per spec rule)
+    ├── _mixins.scss          # respond-to / card-surface / truncate / focus-ring
+    ├── _reset.scss
+    ├── _typography.scss
+    ├── components/           # button, form, modal, nav, alert, card, badge, layout
+    ├── pages/                # per-screen partials
+    └── main.scss             # imports everything
 ```
 
 For the *why* behind the structure, see [`docs/architecture.md`](docs/architecture.md) and the [design doc](docs/plans/2026-05-06-stones-encyclopedia-design.md).
