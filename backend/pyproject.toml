@@ -1,0 +1,5 @@
+[tool.pytest.ini_options]
+# Run pytest from the backend/ directory: `cd backend && pytest`.
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-v --tb=short"
