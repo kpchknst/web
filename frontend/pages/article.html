@@ -7,7 +7,7 @@
   <title>Stones &amp; Scents — Rose Quartz</title>
   <link rel="stylesheet" href="styles/main.css">
 </head>
-<body>
+<body data-page="article">
 <div class="site-shell">
 
   <header class="site-header">
@@ -17,10 +17,8 @@
         <a class="site-nav__link" href="index.html">Home</a>
         <a class="site-nav__link" href="moderation.html">Moderation</a>
         <a class="site-nav__link" href="profile.html">My profile</a>
-        <span class="site-nav__user">
-          <span class="badge badge--role-regular">regular</span>
-          <a class="btn btn--secondary btn--small" href="login.html">Log out</a>
-        </span>
+        <span class="site-nav__user" data-nav-user hidden></span>
+        <a class="btn btn--secondary btn--small" href="login.html" data-nav-login>Log in</a>
       </nav>
     </div>
   </header>
@@ -31,22 +29,17 @@
       <article class="page-article" aria-labelledby="article-title">
 
         <div class="page-article__main">
-          <p class="page-article__breadcrumb"><a href="index.html">Articles</a> / Rose Quartz</p>
-
-          <h1 id="article-title" class="page-article__title">Rose Quartz</h1>
-
-          <p class="page-article__meta">
-            <span>Version 1</span>
-            <span>·</span>
-            <span>Updated 2026-05-07</span>
-            <span>·</span>
-            <span>By admin</span>
+          <p class="page-article__breadcrumb">
+            <a href="index.html">Articles</a> / <span data-article-breadcrumb>Rose Quartz</span>
           </p>
 
-          <!-- hero illustration: replace with the AI-generated image once added to assets/stones/ -->
+          <h1 id="article-title" class="page-article__title" data-article-title>Rose Quartz</h1>
+
+          <p class="page-article__meta" data-article-meta>Version 1 · Updated 2026-05-07</p>
+
           <div class="page-article__hero" role="img" aria-label="Polished rose-quartz crystal on cream linen"></div>
 
-          <section class="page-article__body">
+          <section class="page-article__body" data-article-body>
             <p>
               Rose quartz is a translucent pink variety of quartz, coloured by trace amounts of titanium, iron, or manganese. Its hardness on the Mohs scale is 7, the same as all macrocrystalline quartz, which makes it durable enough for jewellery and decorative carvings. Major deposits are mined in Brazil, Madagascar, and South Dakota.
             </p>
@@ -58,7 +51,7 @@
             </p>
           </section>
 
-          <div class="page-article__tags" aria-label="Article tags">
+          <div class="page-article__tags" aria-label="Article tags" data-article-tags>
             <span class="badge badge--tag">quartz-family</span>
             <span class="badge badge--tag">with-perfume-notes</span>
             <span class="badge badge--tag">chakra-heart</span>
@@ -71,7 +64,7 @@
           <div class="page-article__sidebar-card">
             <h3 class="page-article__sidebar-title">Edit this article</h3>
             <p class="card__body">Spotted a mistake or have a better description? Propose an edit and a moderator will review it.</p>
-            <a class="btn btn--primary btn--block" href="article-editor.html">Propose edit</a>
+            <a class="btn btn--primary btn--block" href="article-editor.html" data-article-edit>Propose edit</a>
           </div>
 
           <div class="page-article__sidebar-card">
@@ -100,5 +93,6 @@
   </footer>
 
 </div>
+<script type="module" src="js/main.js"></script>
 </body>
 </html>
