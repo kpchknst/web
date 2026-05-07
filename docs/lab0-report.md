@@ -104,7 +104,12 @@ The seed is **idempotent**: re-running `python -m app.seed` skips users, tags, a
 - [x] All 19 endpoints documented in Swagger UI (FastAPI auto-generates this from the Pydantic schemas).
 - [x] All Python files compile cleanly (`python -m py_compile`).
 - [x] No errors on startup; `uvicorn` log shows `Application startup complete` in ~1 s.
-- [x] **Full smoke-test run** (SQLite mode) — all 10 checks pass:
+- [x] **Pytest suite — 25 tests, all green in ~2.4 s** (run from `backend/` with `.venv/bin/pytest`):
+  - `tests/test_smoke.py` (7 tests) — public endpoints: health, list articles, get-by-slug, 404 on unknown slug, content search, tag filter, Swagger UI rendering.
+  - `tests/test_auth.py` (10 tests) — login (admin/wrong-password/unknown-user), `/auth/me` (without/with/invalid token), admin-only authorisation, `POST /auth/register` creates a regular user, duplicate registration → 409.
+  - `tests/test_edits_variant5.py` (8 tests) — auth gate on `POST /articles/{slug}/edits`, propose-and-approve bumps `version`, reject records reason and does NOT bump version, double-approve → 409, **concurrent-edit stale flagging** (the spec-mandatory Variant 5 case), `/me/edits` listing, queue listing admin-only, oversized content → 422 (2000-char Variant 5 limit).
+  - Tests use an in-memory SQLite (StaticPool) — never touch the production Supabase Postgres.
+- [x] **Full curl smoke-test run on real Supabase Postgres** (`eu-west-1`, Session pooler, port 5432) — all 10 checks pass:
   1. `GET /` → `{"status":"ok","service":"stones-and-scents-api"}`
   2. `GET /articles` → 10 stones returned, each with content + tags
   3. `POST /auth/login` (`admin/admin123`) → JWT issued
