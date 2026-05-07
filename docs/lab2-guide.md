@@ -170,7 +170,17 @@ frontend/pages/js/
 ## Step 4 — `js/api.js` (the fetch wrapper)
 
 ```js
-const API_BASE = 'http://localhost:8001';
+const API_BASE_DEFAULT = 'http://localhost:8001';
+
+const readOverride = () => {
+    try {
+        return window.localStorage.getItem('apiBase');
+    } catch (_) {
+        return null;
+    }
+};
+
+const API_BASE = readOverride() || API_BASE_DEFAULT;
 
 const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '0.0.0.0', '']);
 
@@ -234,6 +244,8 @@ export { API_BASE };
 > **Why `formatDetail`?** FastAPI returns 4xx errors with two different shapes: `{detail: "string"}` for HTTPExceptions like 401, and `{detail: [{msg, loc, type, ...}]}` for 422 Pydantic validation failures. Without normalisation, a 422 would surface to the user as `[object Object]` because `new Error([{...}])` stringifies the array poorly.
 >
 > **Why detect `LOCAL_HOSTS`?** The same JS ships to GitHub Pages (`kpchknst.github.io`). On the live site there is no backend on `localhost:8001`, so attempting `fetch` would log a network error in the console — which the spec forbids. Each per-page module checks `isLocalEnvironment()` and falls back to the static HTML when off-host.
+>
+> **Why `localStorage.getItem('apiBase')` first?** The teacher's machine has port 8001 free, so the default spec value works. Anastasia's Mac has 8001 held by an unrelated Docker container, so her local backend listens on `:8002` instead. With the override she runs `localStorage.setItem('apiBase', 'http://localhost:8002')` once in DevTools and never edits the source — keeps the committed code spec-aligned.
 
 ---
 
@@ -718,19 +730,37 @@ Expected output: nothing (zero errors, zero warnings, exit 0). If you see compla
 ## Step 14 — Run end-to-end smoke test
 
 ```bash
-# Terminal A — backend
+# Terminal A — backend (teacher's machine: spec ports)
 cd backend
 source .venv/bin/activate
-uvicorn app.main:app --reload --port 8001    # use --port 8002 on Anastasia's mac;
-                                               # then update frontend/pages/js/api.js's
-                                               # API_BASE constant temporarily to 8002
+uvicorn app.main:app --reload --port 8001
 
-# Terminal B — frontend file server
+# Terminal B — frontend file server (teacher's machine: spec ports)
 cd frontend/pages
 python3 -m http.server 8000
 ```
 
-Open http://localhost:8000/index.html in **Chrome** AND **Firefox**. For each browser:
+> **Anastasia's Mac:** ports 8000 and 8001 are held by an unrelated Docker stack, so use `:8002` for the backend and `:5500` for the frontend instead, and let CORS know:
+>
+> ```bash
+> # Terminal A
+> cd backend && source .venv/bin/activate
+> CORS_ORIGINS="http://localhost:5500,http://localhost:8000" \
+>     uvicorn app.main:app --reload --port 8002
+>
+> # Terminal B
+> cd frontend/pages && python3 -m http.server 5500
+> ```
+>
+> Then in the browser DevTools console run ONCE:
+>
+> ```js
+> localStorage.setItem('apiBase', 'http://localhost:8002')
+> ```
+>
+> Reload. `api.js` reads `localStorage.apiBase` before the spec default (`http://localhost:8001`), so the JS now talks to the alternate backend. The override only persists for the origin you set it on — `localStorage.removeItem('apiBase')` clears it.
+
+Open http://localhost:8000/index.html (or `:5500` on Anastasia's mac) in **Chrome** AND **Firefox**. For each browser:
 
 1. **Homepage** — open DevTools Network tab. Reload. You should see exactly one `GET /articles` request returning 200 with a JSON array of 10 stones. The 10 cards on screen show the real titles, real version numbers, real tag slugs.
 2. **Console tab** — empty.

@@ -30,10 +30,10 @@ cd ../frontend
 npm install
 ```
 
-## Run the app
+## Run the app — teacher's machine (spec ports free)
 
 ```bash
-# Terminal A — backend (already running from setup above)
+# Terminal A — backend (already running from setup above on :8001)
 
 # Terminal B — frontend (must be served via HTTP, not opened as file://,
 # because fetch + CORS require a real origin)
@@ -44,6 +44,27 @@ python3 -m http.server 8000
 ```
 
 The CORS allow-list in `backend/app/main.py` includes `http://localhost:8000` — so the frontend can talk to the backend with no extra config.
+
+## Run the app — Anastasia's Mac (Docker holds :8000 and :8001)
+
+```bash
+# Terminal A — backend on :8002 with CORS opened to the alt frontend port
+cd backend
+source .venv/bin/activate
+CORS_ORIGINS="http://localhost:5500,http://localhost:8000" \
+    uvicorn app.main:app --reload --port 8002
+
+# Terminal B — frontend on :5500
+cd frontend/pages
+python3 -m http.server 5500
+
+# Open http://localhost:5500/index.html, then in DevTools console run ONCE:
+#   localStorage.setItem('apiBase', 'http://localhost:8002')
+# Reload. The JS now talks to :8002 instead of the :8001 default.
+# Reset later with:  localStorage.removeItem('apiBase')
+```
+
+`api.js` reads `localStorage.apiBase` first and falls back to the spec value `http://localhost:8001`, so this override is invisible to the teacher.
 
 ## Demo credentials (seeded by `python -m app.seed`)
 
