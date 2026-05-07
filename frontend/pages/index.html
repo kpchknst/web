@@ -7,10 +7,9 @@
   <title>Stones &amp; Scents — Encyclopedia of natural stones</title>
   <link rel="stylesheet" href="styles/main.css">
 </head>
-<body>
+<body data-page="home">
 <div class="site-shell">
 
-  <!-- top navigation, repeated on every page -->
   <header class="site-header">
     <div class="container site-header__inner">
       <a class="site-header__logo" href="index.html">Stones &amp; Scents</a>
@@ -19,7 +18,8 @@
         <a class="site-nav__link" href="users.html">Users</a>
         <a class="site-nav__link" href="moderation.html">Moderation</a>
         <a class="site-nav__link" href="profile.html">My profile</a>
-        <a class="btn btn--secondary btn--small" href="login.html">Log in</a>
+        <span class="site-nav__user" data-nav-user hidden></span>
+        <a class="btn btn--secondary btn--small" href="login.html" data-nav-login>Log in</a>
       </nav>
       <button type="button" class="site-header__menu-toggle" aria-label="Open menu">Menu</button>
     </div>
@@ -50,9 +50,7 @@
         </div>
       </section>
 
-      <!-- 10 stone cards — content mirrors backend/app/seed.py so Lab 2's
-           fetched data drops in without visual change -->
-      <section class="page-home__grid" aria-label="Article list">
+      <section class="page-home__grid" aria-label="Article list" data-articles-grid>
 
         <article class="card">
           <div class="card__thumb card__thumb--rose-quartz" role="img" aria-label="Rose quartz illustration"></div>
@@ -176,5 +174,6 @@
   </footer>
 
 </div>
+<script type="module" src="js/main.js"></script>
 </body>
 </html>

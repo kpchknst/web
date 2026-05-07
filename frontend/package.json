@@ -1,14 +1,18 @@
 {
   "name": "stones-and-scents-frontend",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "Static layout for the Stones & Scents Encyclopedia (Lab 1: HTML5 + SCSS, no JS).",
+  "description": "Stones & Scents Encyclopedia frontend (Lab 1 static layout + Lab 2 AJAX wiring).",
   "scripts": {
     "scss": "sass --no-source-map --style=compressed styles/main.scss pages/styles/main.css",
     "scss:watch": "sass --watch styles/main.scss:pages/styles/main.css",
-    "scss:expanded": "sass --no-source-map --style=expanded styles/main.scss pages/styles/main.css"
+    "scss:expanded": "sass --no-source-map --style=expanded styles/main.scss pages/styles/main.css",
+    "lint": "eslint \"**/*.js\" --ignore-pattern node_modules/"
   },
   "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
     "sass": "^1.79.0"
   }
 }

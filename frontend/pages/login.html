@@ -7,7 +7,7 @@
   <title>Stones &amp; Scents — Log in</title>
   <link rel="stylesheet" href="styles/main.css">
 </head>
-<body>
+<body data-page="login">
 <div class="site-shell">
 
   <header class="site-header">
@@ -15,7 +15,8 @@
       <a class="site-header__logo" href="index.html">Stones &amp; Scents</a>
       <nav class="site-nav" aria-label="Primary">
         <a class="site-nav__link" href="index.html">Home</a>
-        <a class="site-nav__link site-nav__link--active" href="login.html">Log in</a>
+        <span class="site-nav__user" data-nav-user hidden></span>
+        <a class="site-nav__link site-nav__link--active" href="login.html" data-nav-login>Log in</a>
       </nav>
     </div>
   </header>
@@ -28,8 +29,9 @@
           <h1 id="login-title" class="page-login__title">Welcome back</h1>
           <p class="page-login__subtitle">Sign in to propose article edits or moderate the queue.</p>
 
-          <!-- form is static (Lab 1 has no JS); action="#" prevents accidental submission -->
-          <form class="form" action="#" method="post" novalidate>
+          <form class="form" action="#" method="post" novalidate data-login-form>
+            <p class="form-error" role="alert" data-login-error hidden></p>
+
             <div class="form-field">
               <label class="form-field__label form-field__label--required" for="login-username">Username</label>
               <input class="form-input" id="login-username" type="text" name="username" autocomplete="username" required>
@@ -62,5 +64,6 @@
   </footer>
 
 </div>
+<script type="module" src="js/main.js"></script>
 </body>
 </html>
