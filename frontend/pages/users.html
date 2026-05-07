@@ -7,7 +7,7 @@
   <title>Stones &amp; Scents — Users</title>
   <link rel="stylesheet" href="styles/main.css">
 </head>
-<body>
+<body data-page="users">
 <div class="site-shell">
 
   <header class="site-header">
@@ -18,10 +18,8 @@
         <a class="site-nav__link site-nav__link--active" href="users.html">Users</a>
         <a class="site-nav__link" href="moderation.html">Moderation</a>
         <a class="site-nav__link" href="profile.html">My profile</a>
-        <span class="site-nav__user">
-          <span class="badge badge--role-admin">admin</span>
-          <a class="btn btn--secondary btn--small" href="login.html">Log out</a>
-        </span>
+        <span class="site-nav__user" data-nav-user hidden></span>
+        <a class="btn btn--secondary btn--small" href="login.html" data-nav-login>Log in</a>
       </nav>
     </div>
   </header>
@@ -36,16 +34,8 @@
           <a class="btn btn--primary" href="user-create.html">+ New user</a>
         </div>
 
-        <!-- success notification example (rendered statically) -->
-        <div class="alert alert--success" role="status">
-          <span class="alert__icon" aria-hidden="true">✓</span>
-          <div>
-            <p class="alert__title">User created</p>
-            <p class="alert__body">user <strong>alice</strong> was added with the regular role.</p>
-          </div>
-        </div>
+        <div class="alert" role="status" data-users-alert hidden></div>
 
-        <!-- user listing table -->
         <table class="user-table">
           <thead>
             <tr>
@@ -55,7 +45,7 @@
               <th scope="col">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody data-users-tbody>
             <tr>
               <td data-label="Username">
                 <span class="user-table__cell--name">
@@ -144,5 +134,6 @@
   </footer>
 
 </div>
+<script type="module" src="js/main.js"></script>
 </body>
 </html>
