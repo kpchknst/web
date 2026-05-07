@@ -26,6 +26,7 @@ coverage/
 # --- editors / OS ---
 .idea/
 .vscode/
+.claude/
 .DS_Store
 Thumbs.db
 
