@@ -39,12 +39,16 @@
 }
 
 .page-article__hero {
+  display: block;
+  width: 100%;
   height: 320px;
   border-radius: v.$radius-lg;
   margin-bottom: v.$space-lg;
   background: linear-gradient(135deg, v.$rose-quartz, v.$amethyst-deep);
   position: relative;
   overflow: hidden;
+  object-fit: cover;
+  object-position: center;
 }
 
 .page-article__hero::after {
