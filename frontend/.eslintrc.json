@@ -1,7 +1,7 @@
 {
     "env": {
         "browser": true,
-        "es6": true
+        "es2022": true
     },
     "extends": [
         "airbnb-base"
@@ -30,8 +30,84 @@
                 "alertHost",
                 "tbody",
                 "el",
-                "node"
+                "node",
+                "config",
+                "draft"
             ]
         }]
-    }
+    },
+    "overrides": [
+        {
+            "files": ["src/**/*.{js,jsx}"],
+            "extends": [
+                "airbnb-base",
+                "plugin:react/recommended",
+                "plugin:react/jsx-runtime",
+                "plugin:react-hooks/recommended",
+                "plugin:jsx-a11y/recommended"
+            ],
+            "plugins": ["react", "react-hooks", "jsx-a11y"],
+            "parserOptions": {
+                "ecmaVersion": 2022,
+                "sourceType": "module",
+                "ecmaFeatures": {
+                    "jsx": true
+                }
+            },
+            "settings": {
+                "react": {
+                    "version": "detect"
+                },
+                "import/resolver": {
+                    "node": {
+                        "extensions": [".js", ".jsx"]
+                    }
+                }
+            },
+            "rules": {
+                "indent": ["error", 4, { "SwitchCase": 1 }],
+                "import/extensions": ["error", "always", {
+                    "ignorePackages": true,
+                    "jsx": "always",
+                    "js": "always"
+                }],
+                "import/prefer-default-export": "off",
+                "no-param-reassign": ["error", {
+                    "props": true,
+                    "ignorePropertyModificationsFor": [
+                        "host",
+                        "slot",
+                        "link",
+                        "grid",
+                        "alertHost",
+                        "tbody",
+                        "el",
+                        "node",
+                        "config",
+                        "draft"
+                    ]
+                }],
+                "react/jsx-indent": ["error", 4],
+                "react/jsx-indent-props": ["error", 4],
+                "react/jsx-filename-extension": ["error", { "extensions": [".jsx"] }],
+                "react/prop-types": "off",
+                "react/function-component-definition": ["error", {
+                    "namedComponents": "function-declaration",
+                    "unnamedComponents": "arrow-function"
+                }],
+                "jsx-a11y/label-has-associated-control": ["error", { "assert": "either" }],
+                "no-restricted-syntax": "off"
+            }
+        },
+        {
+            "files": ["vite.config.js", "*.config.js", "*.config.cjs"],
+            "parserOptions": {
+                "ecmaVersion": 2022,
+                "sourceType": "module"
+            },
+            "rules": {
+                "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
+            }
+        }
+    ]
 }
