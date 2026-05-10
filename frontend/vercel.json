@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+        {
+            "source": "/api/:path*",
+            "destination": "https://stones-and-scents.onrender.com/:path*"
+        }
+    ]
+}
