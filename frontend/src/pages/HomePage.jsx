@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 import { listArticles } from '../api/articles.js';
 import Alert from '../components/Alert.jsx';
 import Badge from '../components/Badge.jsx';
+import SearchBox from '../components/SearchBox.jsx';
 import Spinner from '../components/Spinner.jsx';
+import TagFilter from '../components/TagFilter.jsx';
 import { buildExcerpt } from '../utils/format.js';
 import { getStoneImageUrl } from '../utils/stoneImages.js';
 
@@ -46,7 +48,17 @@ function ArticleCard({ article }) {
     );
 }
 
+function parseTagsParam(value) {
+    if (!value) return [];
+    return value.split(',').map((s) => s.trim()).filter(Boolean);
+}
+
 export default function HomePage() {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const q = searchParams.get('q') || '';
+    const tagsParam = searchParams.get('tag') || '';
+    const tagsArray = parseTagsParam(tagsParam);
+
     const [articles, setArticles] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -57,7 +69,10 @@ export default function HomePage() {
             setLoading(true);
             setError('');
             try {
-                const data = await listArticles();
+                const params = {};
+                if (q) params.q = q;
+                if (tagsArray.length > 0) [params.tag] = tagsArray;
+                const data = await listArticles(params);
                 if (!cancelled) {
                     setArticles(Array.isArray(data) ? data : []);
                 }
@@ -75,7 +90,26 @@ export default function HomePage() {
         return () => {
             cancelled = true;
         };
-    }, []);
+    // tagsArray is derived from tagsParam — re-running on tagsParam covers it.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [q, tagsParam]);
+
+    const updateParams = (next) => {
+        const params = {};
+        if (next.q) params.q = next.q;
+        if (next.tag) params.tag = next.tag;
+        setSearchParams(params, { replace: true });
+    };
+
+    const handleSearchChange = (value) => {
+        updateParams({ q: value, tag: tagsParam });
+    };
+
+    const handleTagChange = (arr) => {
+        updateParams({ q, tag: arr.join(',') });
+    };
+
+    const filtersActive = Boolean(q) || tagsArray.length > 0;
 
     return (
         <>
@@ -88,6 +122,15 @@ export default function HomePage() {
                 </p>
             </section>
 
+            <section className="page-home__filters" aria-label="Filters">
+                <SearchBox
+                    value={q}
+                    onChange={handleSearchChange}
+                    placeholder="Search articles…"
+                />
+                <TagFilter selected={tagsArray} onChange={handleTagChange} />
+            </section>
+
             {loading && <Spinner label="Loading articles…" />}
 
             {!loading && error && (
@@ -96,7 +139,13 @@ export default function HomePage() {
                 </Alert>
             )}
 
-            {!loading && !error && articles.length === 0 && (
+            {!loading && !error && articles.length === 0 && filtersActive && (
+                <Alert variant="info" title="No articles match">
+                    Try clearing the search or removing tag filters.
+                </Alert>
+            )}
+
+            {!loading && !error && articles.length === 0 && !filtersActive && (
                 <Alert variant="info" title="No articles yet">
                     Seed the database with
                     {' '}
