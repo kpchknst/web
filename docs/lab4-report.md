@@ -110,23 +110,24 @@ Implemented in:
 
 ## 6. Quality metrics
 
-> Filled in after Phase 6 verification.
-
 | Metric | Target | Actual |
 |---|---|---|
-| Frontend lint (`npm run lint`) | 0 errors / 0 warnings, exit 0 | _TBD_ |
-| Frontend bundle (`npm run build`) | ≤ 350 KB JS gzip | _TBD_ |
-| Backend tests (`pytest`) | ≥ 45, all green | _TBD_ |
-| Largest source file | ≤ 400 LOC | _TBD_ |
-| Largest function | ≤ 75 LOC | _TBD_ |
-| Two browsers | Chrome + Firefox, no console errors | _TBD_ |
-| Page load on cold cache | < 4 s | _TBD_ |
+| Frontend lint (`npm run lint`) | 0 errors / 0 warnings, exit 0 | **silent, exit 0** ✓ |
+| Frontend bundle (`npm run build`) | ≤ 350 KB JS gzip | **314.51 KB raw / 99.64 KB gzip** ✓ |
+| Frontend CSS bundle | n/a | 25.83 KB raw / 5.25 KB gzip |
+| Backend tests (`pytest`) | ≥ 45, all green | **50 passed, 1 warning** (Google-genai `_UnionGenericAlias` deprecation; pre-existing) ✓ |
+| Largest frontend file | ≤ 400 LOC | `TagsAdminPage.jsx` at **312 LOC** ✓ |
+| Largest backend file | ≤ 400 LOC | `seed.py` at **291 LOC** (untouched in Lab 4); largest Lab 4 addition: `routers/articles.py` at **119 LOC** ✓ |
+| Largest function | ≤ 75 LOC | inspected; biggest single function ≤ 75 LOC ✓ |
+| New backend tests | n/a | `test_tags.py` (6), `test_history.py` (3), `test_uploads.py` (5) = **+14** (36 → 50) |
+| Two browsers | Chrome + Firefox, no console errors | _Pending — user smoke per `docs/lab4-guide.md` §7.1_ |
+| Page load on cold cache | < 4 s | _Pending — user smoke_ |
 
 ---
 
 ## 7. Files added / changed
 
-> Filled in after implementation.
+Final shape after 21 commits on `lab4`:
 
 ```
 backend/app/routers/tags.py         NEW
