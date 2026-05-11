@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import useAuth from '../auth/useAuth.js';
 
@@ -102,6 +102,12 @@ export default function LoginPage() {
                             {busy ? 'Signing in…' : 'Log in'}
                         </button>
                     </div>
+
+                    <p className="page-login__alt">
+                        New here?
+                        {' '}
+                        <Link to="/register">Create an account →</Link>
+                    </p>
                 </form>
             </div>
         </section>

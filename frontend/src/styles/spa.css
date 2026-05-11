@@ -97,6 +97,23 @@
     font-size: 0.875rem;
 }
 
+.page-login__alt {
+    margin: 1rem 0 0;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #6b6373;
+}
+
+.page-login__alt a {
+    color: #6a3aa6;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.page-login__alt a:hover {
+    text-decoration: underline;
+}
+
 /* --- Reading page --------------------------------------------------- */
 
 .page-reading {
