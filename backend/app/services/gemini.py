@@ -42,7 +42,7 @@ _GENERATION_CONFIG = {
     "max_output_tokens": 600,
 }
 
-_MODEL_NAME = "gemini-1.5-flash"
+_MODEL_NAME = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
 
 
 def _configure() -> None:
