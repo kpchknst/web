@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage.jsx';
 import ArticlePage from './pages/ArticlePage.jsx';
 import ArticleEditorPage from './pages/ArticleEditorPage.jsx';
 import ArticleHistoryPage from './pages/ArticleHistoryPage.jsx';
+import ModerationQueuePage from './pages/ModerationQueuePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import ReadingPage from './pages/ReadingPage.jsx';
@@ -81,6 +82,14 @@ function App() {
                     element={(
                         <ProtectedRoute>
                             <UserEditPage />
+                        </ProtectedRoute>
+                    )}
+                />
+                <Route
+                    path="/moderation"
+                    element={(
+                        <ProtectedRoute requireAdmin>
+                            <ModerationQueuePage />
                         </ProtectedRoute>
                     )}
                 />
