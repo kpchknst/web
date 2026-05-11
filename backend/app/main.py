@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
-from .routers import ai, articles, auth, edits, users  # noqa: E402  (import after dotenv)
+from .routers import ai, articles, auth, edits, tags, users  # noqa: E402  (import after dotenv)
 
 app = FastAPI(
     title="Stones & Scents API",
@@ -28,6 +28,7 @@ app.add_middleware(
 
 app.include_router(auth.router, prefix="/auth", tags=["auth"])
 app.include_router(users.router, prefix="/users", tags=["users"])
+app.include_router(tags.router, prefix="/tags", tags=["tags"])
 app.include_router(articles.router, prefix="/articles", tags=["articles"])
 app.include_router(edits.router, tags=["edits"])  # routes split across /articles/.. and /edits/..
 app.include_router(ai.router)
