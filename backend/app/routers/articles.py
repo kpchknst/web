@@ -1,4 +1,7 @@
-"""Article CRUD. Public read, admin write. Versioning is handled here."""
+"""Article CRUD. Public read, admin write. Versioning is handled here.
+
+Also exposes GET /{slug}/history with the article's approved-edit history.
+"""
 
 from typing import Optional
 
@@ -8,8 +11,8 @@ from sqlalchemy.orm import Session
 
 from ..auth import require_admin
 from ..db import get_db
-from ..models import Article, Tag, User
-from ..schemas import ArticleCreate, ArticleOut, ArticleUpdate
+from ..models import Article, ArticleEdit, Tag, User
+from ..schemas import ArticleCreate, ArticleOut, ArticleUpdate, EditOut
 
 router = APIRouter()
 
@@ -97,3 +100,20 @@ def delete_article(
         raise HTTPException(status_code=404, detail="Article not found")
     db.delete(article)
     db.commit()
+
+
+@router.get("/{slug}/history", response_model=list[EditOut])
+def article_history(slug: str, db: Session = Depends(get_db)):
+    """Return the article's approved edits, oldest first."""
+    article = db.query(Article).filter(Article.slug == slug).first()
+    if not article:
+        raise HTTPException(status_code=404, detail="Article not found")
+    return (
+        db.query(ArticleEdit)
+        .filter(
+            ArticleEdit.article_id == article.id,
+            ArticleEdit.status == "approved",
+        )
+        .order_by(ArticleEdit.reviewed_at.asc())
+        .all()
+    )
