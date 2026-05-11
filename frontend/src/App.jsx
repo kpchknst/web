@@ -5,6 +5,7 @@ import ProtectedRoute from './auth/ProtectedRoute.jsx';
 
 import HomePage from './pages/HomePage.jsx';
 import ArticlePage from './pages/ArticlePage.jsx';
+import ArticleEditorPage from './pages/ArticleEditorPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import ReadingPage from './pages/ReadingPage.jsx';
@@ -19,6 +20,22 @@ function App() {
         <Routes>
             <Route element={<Layout />}>
                 <Route path="/" element={<HomePage />} />
+                <Route
+                    path="/articles/new"
+                    element={(
+                        <ProtectedRoute requireAdmin>
+                            <ArticleEditorPage />
+                        </ProtectedRoute>
+                    )}
+                />
+                <Route
+                    path="/articles/:slug/edit"
+                    element={(
+                        <ProtectedRoute>
+                            <ArticleEditorPage />
+                        </ProtectedRoute>
+                    )}
+                />
                 <Route path="/articles/:slug" element={<ArticlePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
