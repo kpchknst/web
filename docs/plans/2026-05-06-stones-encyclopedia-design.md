@@ -167,26 +167,35 @@ PRIMARY KEY (article_id, tag_id)
 
 ---
 
-## 4. Screens (11 total)
+## 4. Screens (16 total — updated for Lab 4)
 
 **User-management screens (Lab 1 mandate):**
 1. `/login` — login page
-2. `/users` — user listing, badge per role (admin only sees full list; regular sees self only)
-3. `/users/new` — create user (modal)
-4. `/users/:id` — user detail
-5. `/users/:id/edit` — edit user
-6. (Delete-user confirm → modal on the listing)
+2. `/register` — public sign-up (added with the AI-readings work, 2026-05-11)
+3. `/users` — user listing, admin-only
+4. `/users/new` — create user
+5. `/users/:id` — user detail (admin view; self-view sections moved to `/profile` in Lab 4)
+6. `/users/:id/edit` — edit user
 
-**Variant-5 screens:**
+**Variant-5 / Lab 4 screens:**
 7. `/` — article listing (homepage, public, with search + tag filter)
-8. `/articles/:slug` — article reader (public) with "Propose edit" button when authenticated
-9. `/articles/:slug/edit` & `/articles/new` — article editor with live 2000-char counter
-10. `/moderation` — moderation queue (admin only) with side-by-side diff
-11. `/profile` — own profile + own edits (pending / approved / rejected)
+8. `/articles/:slug` — article reader (public) with role-aware CTAs
+9. `/articles/:slug/history` — chronological list of approved edits with diff viewer (added in Lab 4)
+10. `/articles/:slug/edit` — article editor (auth; admin direct-publishes, regular proposes)
+11. `/articles/new` — create-article (admin only)
+12. `/moderation` — moderation queue (admin only) with side-by-side diff, approve / reject, stale badge
+13. `/profile` — own profile + AI readings + own edits grouped by status
+14. `/tags` — tag CRUD (admin only, added in Lab 4)
 
-**Cross-cutting components:** top nav (logo, search, login/logout, role badge), toast stack, inline form validation.
+**AI Stone Readings (bonus, added 2026-05-11):**
+15. `/my-reading` — generate a perfume / personality reading from selected stones
 
-Total: **6 user-management** + **5 variant-specific** ≥ "≥ 3 variant screens" requirement.
+**404:**
+16. `*` — NotFound
+
+**Cross-cutting components:** top nav (logo, role badge, links — Home / My reading / Moderation / Profile / Users / Tags by role), toast stack, inline form validation.
+
+Total: **16 routes** ≫ "≥ 3 variant screens" requirement.
 
 ---
 
@@ -251,7 +260,15 @@ All 11 screens as static HTML+SCSS — no JS yet. Mock data inline. SCSS uses va
 Vite + React rewrite of the `frontend/`. React Router with refresh-safe routes. JWT stored in `localStorage` and put on `Authorization: Bearer …` header by an `axios` interceptor. Auth context exposes `user` and `role`. **Full user CRUD** (list, create, view, edit, delete). README has one-command setup. `localhost:8000` per spec. Files ≤ 400 LOC, functions ≤ 75 LOC.
 
 ### Lab 4 — variant-specific functionality (25 pts)
-Article CRUD, tag filter, search box, **moderation queue**, **edit-conflict UX** (Section 5 above), profile page with own edits, character counter, image upload (or URL input) for cover image.
+Locked design + bite-sized implementation plan in
+[`docs/plans/2026-05-11-lab4-variant5-functionality-design.md`](2026-05-11-lab4-variant5-functionality-design.md)
+and [`-plan.md`](2026-05-11-lab4-variant5-functionality-plan.md).
+Headline: article CRUD with role-split UX, search + tag filter,
+moderation queue with side-by-side diff and stale-detection, profile
+page, version history, tag admin, and a hybrid cover-image input
+(URL field + drag-and-drop upload via a backend Supabase Storage
+proxy with local-fs fallback). Plus MSW scaffolding pre-built so
+Lab 5 only writes tests.
 
 ### Lab 5 — unit tests (5 pts)
 Vitest + React Testing Library + MSW. Tests for `LoginForm`, `ArticleList`, `ArticleEditor`, `ModerationQueue`, `UserList` plus hooks (`useAuth`, `useArticles`, `useEdits`) and utils (validators, char-count). `npm run coverage` reports **> 70 %**. Coverage HTML report linked from `docs/lab5-report.md`.
@@ -313,9 +330,9 @@ Plus repo-level docs:
 
 ## 11. Open items (decided later, not blocking)
 
-- Cover image upload mechanism: URL input (simple) vs file upload to Supabase Storage (richer). Decision in Lab 4.
+- ~~Cover image upload mechanism: URL input (simple) vs file upload to Supabase Storage (richer). Decision in Lab 4.~~ **Decided 2026-05-11 (Lab 4):** hybrid — URL field + optional drag-and-drop upload via a backend `POST /uploads` proxy to Supabase Storage bucket `article-covers`. Local-fs fallback to `backend/uploads/` when `USE_SQLITE=1` or the service key is absent.
+- ~~Whether to deploy the Lab 3+ React SPA (Vercel / Netlify) in addition to the local-only spec requirement. Bonus polish, not required.~~ **Done 2026-05-11:** SPA on Vercel at <https://stones-and-scents.vercel.app>, backend on Render at <https://stones-and-scents.onrender.com>.
 - Tag color palette / icon set (purely visual, decided in Lab 1 mockups).
-- Whether to deploy the Lab 3+ React SPA (Vercel / Netlify) in addition to the local-only spec requirement. Bonus polish, not required.
 
 ---
 
