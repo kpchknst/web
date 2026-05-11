@@ -1,5 +1,7 @@
 """POST /uploads — admin-only multipart cover-image upload."""
 
+import logging
+
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 
 from ..auth import require_admin
@@ -7,6 +9,7 @@ from ..models import User
 from ..schemas import UploadOut
 from ..services.storage import StorageError, upload
 
+logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
@@ -17,12 +20,13 @@ async def upload_cover(
 ):
     body = await file.read()
     try:
-        url = upload(body, file.content_type or "", file.filename or "upload")
+        url = upload(body, file.content_type or "")
     except StorageError as exc:
         msg = str(exc)
         if "unsupported" in msg:
             raise HTTPException(status_code=415, detail=msg) from exc
         if "too large" in msg:
             raise HTTPException(status_code=413, detail=msg) from exc
+        logger.exception("upload failed: %s", exc)
         raise HTTPException(status_code=503, detail="storage unavailable") from exc
     return {"url": url}

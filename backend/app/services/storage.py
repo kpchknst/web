@@ -24,7 +24,7 @@ class StorageError(Exception):
     """Raised on validation failure or upstream storage failure."""
 
 
-def upload(file_bytes: bytes, mime: str, original_name: str) -> str:
+def upload(file_bytes: bytes, mime: str) -> str:
     """Validate and store ``file_bytes``, returning a URL to the saved object."""
     if mime not in ALLOWED_MIME:
         raise StorageError(f"unsupported mime {mime}")
@@ -57,6 +57,9 @@ def _upload_supabase(file_bytes: bytes, key: str, mime: str) -> str:
     sb = create_client(url, service_key)
     try:
         sb.storage.from_(bucket).upload(key, file_bytes, {"content-type": mime})
-        return sb.storage.from_(bucket).get_public_url(key)
+        url = sb.storage.from_(bucket).get_public_url(key)
     except Exception as exc:  # noqa: BLE001 — surface any SDK failure as 503
         raise StorageError(f"supabase upload failed: {exc}") from exc
+    if not url:
+        raise StorageError("supabase did not return a public url")
+    return url
