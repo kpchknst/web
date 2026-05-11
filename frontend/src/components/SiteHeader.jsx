@@ -47,6 +47,42 @@ export default function SiteHeader() {
                                     ? 'site-nav__link site-nav__link--active'
                                     : 'site-nav__link'
                             )}
+                            to="/moderation"
+                        >
+                            Moderation
+                        </NavLink>
+                    )}
+                    {user && (
+                        <NavLink
+                            className={({ isActive }) => (
+                                isActive
+                                    ? 'site-nav__link site-nav__link--active'
+                                    : 'site-nav__link'
+                            )}
+                            to="/profile"
+                        >
+                            Profile
+                        </NavLink>
+                    )}
+                    {user?.role === 'admin' && (
+                        <NavLink
+                            className={({ isActive }) => (
+                                isActive
+                                    ? 'site-nav__link site-nav__link--active'
+                                    : 'site-nav__link'
+                            )}
+                            to="/tags"
+                        >
+                            Tags
+                        </NavLink>
+                    )}
+                    {user?.role === 'admin' && (
+                        <NavLink
+                            className={({ isActive }) => (
+                                isActive
+                                    ? 'site-nav__link site-nav__link--active'
+                                    : 'site-nav__link'
+                            )}
                             to="/users"
                         >
                             Users
