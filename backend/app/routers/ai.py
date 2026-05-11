@@ -21,6 +21,31 @@ router = APIRouter(prefix="/ai", tags=["ai"])
 MAX_LIMIT = 50
 
 
+@router.get("/diag")
+def diag():
+    """One-shot diagnostic — calls Gemini and returns the raw outcome."""
+    import os
+    import traceback
+
+    info = {
+        "model": gemini._MODEL_NAME,  # noqa: SLF001
+        "has_key": bool(os.getenv("GEMINI_API_KEY")),
+    }
+    try:
+        text = gemini._call(  # noqa: SLF001
+            "You answer in exactly two words.",
+            "Say hello.",
+        )
+        info["ok"] = True
+        info["response"] = text[:200]
+    except Exception as exc:  # noqa: BLE001
+        info["ok"] = False
+        info["exception_type"] = type(exc).__name__
+        info["exception_message"] = str(exc)[:1000]
+        info["traceback"] = traceback.format_exc()[:2000]
+    return info
+
+
 def _normalised_slugs(slugs: list[str], db: Session) -> list[str]:
     cleaned = sorted({s.strip().lower() for s in slugs if s and s.strip()})
     if not 1 <= len(cleaned) <= 3:
