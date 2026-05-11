@@ -11,6 +11,7 @@ import ModerationQueuePage from './pages/ModerationQueuePage.jsx';
 import TagsAdminPage from './pages/TagsAdminPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
 import ReadingPage from './pages/ReadingPage.jsx';
 import UsersListPage from './pages/UsersListPage.jsx';
 import UserCreatePage from './pages/UserCreatePage.jsx';
@@ -46,6 +47,14 @@ function App() {
                 />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
+                <Route
+                    path="/profile"
+                    element={(
+                        <ProtectedRoute>
+                            <ProfilePage />
+                        </ProtectedRoute>
+                    )}
+                />
                 <Route
                     path="/my-reading"
                     element={(
