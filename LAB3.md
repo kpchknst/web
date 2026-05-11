@@ -152,6 +152,13 @@ frontend/
 - **Live GH Pages site** still serves the Lab 1+2 static layout. The React SPA is local-only by design (the spec says `localhost:8000`).
 - **Dev mode prints React DevTools / Vite HMR notices** in the console. Spec says "no errors nor logs"; the production build (`npm run build && npm run preview`) is silent. The teacher demo can use either.
 
+## Bonus polish (not graded under Lab 3)
+
+Two pieces of bonus polish live on top of the graded `lab3` branch:
+
+- **Public deploy** — Vercel-hosted SPA at <https://stones-and-scents.vercel.app> proxying `/api/*` to a Render-hosted FastAPI backend, both talking to the same Supabase Postgres. See PRs #10–#15 for the deploy config.
+- **AI stone readings** — a logged-in-only `/my-reading` page where you pick 1–3 stones and a mode (Perfume / Personality); Google Gemini generates the reading at `temperature=0` and saves it to your profile history. See [`docs/plans/2026-05-11-ai-stone-readings-design.md`](docs/plans/2026-05-11-ai-stone-readings-design.md) and PR #16. The graded `lab3` branch is **not** modified by this work.
+
 ## Where to find what
 
 ```
