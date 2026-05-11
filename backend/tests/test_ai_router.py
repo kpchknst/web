@@ -64,10 +64,14 @@ def test_list_empty_for_fresh_user_is_200(client, regular_token):
     assert isinstance(response.json(), list)
 
 
-def test_no_gemini_key_returns_503(monkeypatch, client, admin_token):
+def test_no_llm_key_returns_503(monkeypatch, client, admin_token):
+    """With no provider key (regardless of LLM_PROVIDER), POST /ai/readings
+    must surface 503 rather than crashing or returning real content."""
     monkeypatch.delenv("GEMINI_API_KEY", raising=False)
+    monkeypatch.delenv("GROQ_API_KEY", raising=False)
+    monkeypatch.delenv("LLM_PROVIDER", raising=False)
     response = _post(
-        client, admin_token, {"kind": "perfume", "stone_slugs": ["amethyst"]}
+        client, admin_token, {"kind": "perfume", "stone_slugs": ["selenite"]}
     )
     assert response.status_code == 503
 

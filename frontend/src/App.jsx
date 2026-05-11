@@ -5,8 +5,13 @@ import ProtectedRoute from './auth/ProtectedRoute.jsx';
 
 import HomePage from './pages/HomePage.jsx';
 import ArticlePage from './pages/ArticlePage.jsx';
+import ArticleEditorPage from './pages/ArticleEditorPage.jsx';
+import ArticleHistoryPage from './pages/ArticleHistoryPage.jsx';
+import ModerationQueuePage from './pages/ModerationQueuePage.jsx';
+import TagsAdminPage from './pages/TagsAdminPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
 import ReadingPage from './pages/ReadingPage.jsx';
 import UsersListPage from './pages/UsersListPage.jsx';
 import UserCreatePage from './pages/UserCreatePage.jsx';
@@ -19,9 +24,37 @@ function App() {
         <Routes>
             <Route element={<Layout />}>
                 <Route path="/" element={<HomePage />} />
+                <Route
+                    path="/articles/new"
+                    element={(
+                        <ProtectedRoute requireAdmin>
+                            <ArticleEditorPage />
+                        </ProtectedRoute>
+                    )}
+                />
+                <Route
+                    path="/articles/:slug/edit"
+                    element={(
+                        <ProtectedRoute>
+                            <ArticleEditorPage />
+                        </ProtectedRoute>
+                    )}
+                />
                 <Route path="/articles/:slug" element={<ArticlePage />} />
+                <Route
+                    path="/articles/:slug/history"
+                    element={<ArticleHistoryPage />}
+                />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
+                <Route
+                    path="/profile"
+                    element={(
+                        <ProtectedRoute>
+                            <ProfilePage />
+                        </ProtectedRoute>
+                    )}
+                />
                 <Route
                     path="/my-reading"
                     element={(
@@ -59,6 +92,22 @@ function App() {
                     element={(
                         <ProtectedRoute>
                             <UserEditPage />
+                        </ProtectedRoute>
+                    )}
+                />
+                <Route
+                    path="/moderation"
+                    element={(
+                        <ProtectedRoute requireAdmin>
+                            <ModerationQueuePage />
+                        </ProtectedRoute>
+                    )}
+                />
+                <Route
+                    path="/tags"
+                    element={(
+                        <ProtectedRoute requireAdmin>
+                            <TagsAdminPage />
                         </ProtectedRoute>
                     )}
                 />

@@ -108,6 +108,12 @@
             "rules": {
                 "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
             }
+        },
+        {
+            "files": ["src/mocks/**/*.js"],
+            "rules": {
+                "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
+            }
         }
     ]
 }

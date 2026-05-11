@@ -1,0 +1,124 @@
+/* theme.css — Apothecary direction (2026-05-12 redesign).
+   CSS custom properties for dark (default) and light modes.
+   See: docs/plans/2026-05-12-design-refresh.md */
+
+:root {
+    /* Dark (default) */
+    --bg: #1a0f2e;
+    --bg-translucent: rgba(26, 15, 46, 0.78);
+    --surface: #261845;
+    --surface-elev: #2f1d56;
+    --text: #f4ebd9;
+    --text-muted: #c9bbd6;
+    --border: #3a275a;
+    --border-soft: rgba(244, 235, 217, 0.12);
+    --accent-gold: #d4a574;
+    --accent-gold-soft: rgba(212, 165, 116, 0.18);
+    --rose: #f0c3c9;
+    --amethyst: #b18ed4;
+    --danger: #e58473;
+    --danger-soft: rgba(229, 132, 115, 0.15);
+    --success: #9ed1b3;
+    --success-soft: rgba(158, 209, 179, 0.15);
+    --warn: #e9c382;
+    --warn-soft: rgba(233, 195, 130, 0.15);
+    --info: #a0bfee;
+    --info-soft: rgba(160, 191, 238, 0.15);
+
+    --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.55);
+    --shadow-card-hover: 0 16px 40px rgba(180, 142, 212, 0.18);
+    --shadow-inset: inset 0 1px 0 rgba(244, 235, 217, 0.04);
+
+    --dur: 280ms;
+    --dur-fast: 180ms;
+    --ease-butter: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-soft: cubic-bezier(0.2, 0.6, 0.2, 1);
+
+    --radius-card: 16px;
+    --radius-btn: 14px;
+    --radius-pill: 999px;
+
+    --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+    color-scheme: dark;
+}
+
+[data-theme="light"] {
+    --bg: #faf7f2;
+    --bg-translucent: rgba(250, 247, 242, 0.82);
+    --surface: #ffffff;
+    --surface-elev: #fbfafd;
+    --text: #2c1f33;
+    --text-muted: #6b6373;
+    --border: #e2dde6;
+    --border-soft: rgba(44, 31, 51, 0.08);
+    --accent-gold: #b8893f;
+    --accent-gold-soft: rgba(184, 137, 63, 0.16);
+    --rose: #e0a4b0;
+    --amethyst: #4a236f;
+    --danger: #c44e3e;
+    --danger-soft: rgba(196, 78, 62, 0.10);
+    --success: #4a7864;
+    --success-soft: rgba(74, 120, 100, 0.10);
+    --warn: #c89938;
+    --warn-soft: rgba(200, 153, 56, 0.12);
+    --info: #1d3a8a;
+    --info-soft: rgba(29, 58, 138, 0.10);
+
+    --shadow-card: 0 2px 8px rgba(44, 31, 51, 0.08);
+    --shadow-card-hover: 0 12px 32px rgba(44, 31, 51, 0.16);
+    --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+    color-scheme: light;
+}
+
+/* Base body painting using the tokens. Overrides the cream background
+   from the compiled main.css so dark mode actually looks dark. */
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    transition: background var(--dur) var(--ease-soft),
+                color var(--dur) var(--ease-soft);
+}
+
+/* Heading family is already Cormorant from main.css. Just tone+colour. */
+h1, h2, h3, h4 {
+    color: var(--text);
+}
+
+a {
+    color: var(--accent-gold);
+    transition: color var(--dur-fast) var(--ease-soft);
+}
+
+a:hover,
+a:focus {
+    color: var(--rose);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+    text-decoration-thickness: 1px;
+}
+
+a:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--accent-gold-soft);
+    border-radius: 4px;
+}
+
+code {
+    background: var(--surface-elev);
+    color: var(--accent-gold);
+    border: 1px solid var(--border-soft);
+}
+
+/* Reduced motion kill-switch — applied at the very top so it cascades. */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
