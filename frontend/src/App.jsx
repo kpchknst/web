@@ -6,6 +6,7 @@ import ProtectedRoute from './auth/ProtectedRoute.jsx';
 import HomePage from './pages/HomePage.jsx';
 import ArticlePage from './pages/ArticlePage.jsx';
 import ArticleEditorPage from './pages/ArticleEditorPage.jsx';
+import ArticleHistoryPage from './pages/ArticleHistoryPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import ReadingPage from './pages/ReadingPage.jsx';
@@ -37,6 +38,10 @@ function App() {
                     )}
                 />
                 <Route path="/articles/:slug" element={<ArticlePage />} />
+                <Route
+                    path="/articles/:slug/history"
+                    element={<ArticleHistoryPage />}
+                />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route
