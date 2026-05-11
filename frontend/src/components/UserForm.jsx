@@ -5,12 +5,16 @@ const INITIAL_DRAFT = {
     password: '',
     confirm: '',
     role: 'regular',
+    gender: '',
 };
+
+const VALID_GENDERS = ['', 'female', 'male', 'prefer_not_to_say'];
 
 function buildInitialDraft(initialValues) {
     return {
         ...INITIAL_DRAFT,
         ...(initialValues || {}),
+        gender: (initialValues && initialValues.gender) || '',
         password: '',
         confirm: '',
     };
@@ -33,6 +37,9 @@ function validate(draft, mode) {
     if (!['regular', 'admin'].includes(draft.role)) {
         errors.role = 'Pick a role.';
     }
+    if (!VALID_GENDERS.includes(draft.gender)) {
+        errors.gender = 'Pick a gender option.';
+    }
     return errors;
 }
 
@@ -43,6 +50,11 @@ function buildSubmitPayload(draft, mode) {
     };
     if (mode === 'create' || draft.password) {
         payload.password = draft.password;
+    }
+    if (draft.gender) {
+        payload.gender = draft.gender;
+    } else if (mode === 'edit') {
+        payload.gender = null;
     }
     return payload;
 }
@@ -159,6 +171,29 @@ export default function UserForm({
                         Only an admin can change another user&apos;s role.
                     </p>
                 )}
+            </div>
+
+            <div className="form-field">
+                <label className="form-field__label" htmlFor="user-form-gender">Gender</label>
+                <select
+                    className="form-select"
+                    id="user-form-gender"
+                    value={draft.gender}
+                    onChange={handleChange('gender')}
+                >
+                    <option value="">(unspecified)</option>
+                    <option value="female">Female</option>
+                    <option value="male">Male</option>
+                    <option value="prefer_not_to_say">Prefer not to say</option>
+                </select>
+                <p className="form-field__hint">
+                    Optional — used to tailor perfume suggestions in the
+                    {' '}
+                    <em>My reading</em>
+                    {' '}
+                    page.
+                </p>
+                {errors.gender && <p className="form-field__error">{errors.gender}</p>}
             </div>
 
             <div className="form-actions">
