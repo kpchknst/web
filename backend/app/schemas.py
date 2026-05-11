@@ -63,6 +63,16 @@ class TagOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+class TagCreate(BaseModel):
+    name: str = Field(..., min_length=1, max_length=50)
+    slug: str = Field(..., min_length=1, max_length=50, pattern=r"^[a-z0-9-]+$")
+
+
+class TagUpdate(BaseModel):
+    name: Optional[str] = Field(None, min_length=1, max_length=50)
+    slug: Optional[str] = Field(None, min_length=1, max_length=50, pattern=r"^[a-z0-9-]+$")
+
+
 # --- articles ------------------------------------------------------------
 
 class ArticleCreate(BaseModel):
@@ -121,6 +131,12 @@ class EditOut(BaseModel):
 
 class EditReject(BaseModel):
     reason: str = Field(..., min_length=1, max_length=500)
+
+
+# --- uploads -------------------------------------------------------------
+
+class UploadOut(BaseModel):
+    url: str
 
 
 # --- AI readings ---------------------------------------------------------

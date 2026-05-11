@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 
 import useAuth from '../auth/useAuth.js';
 import Badge from './Badge.jsx';
+import ThemeToggle from './ThemeToggle.jsx';
 
 export default function SiteHeader() {
     const { user, logout } = useAuth();
@@ -47,6 +48,42 @@ export default function SiteHeader() {
                                     ? 'site-nav__link site-nav__link--active'
                                     : 'site-nav__link'
                             )}
+                            to="/moderation"
+                        >
+                            Moderation
+                        </NavLink>
+                    )}
+                    {user && (
+                        <NavLink
+                            className={({ isActive }) => (
+                                isActive
+                                    ? 'site-nav__link site-nav__link--active'
+                                    : 'site-nav__link'
+                            )}
+                            to="/profile"
+                        >
+                            Profile
+                        </NavLink>
+                    )}
+                    {user?.role === 'admin' && (
+                        <NavLink
+                            className={({ isActive }) => (
+                                isActive
+                                    ? 'site-nav__link site-nav__link--active'
+                                    : 'site-nav__link'
+                            )}
+                            to="/tags"
+                        >
+                            Tags
+                        </NavLink>
+                    )}
+                    {user?.role === 'admin' && (
+                        <NavLink
+                            className={({ isActive }) => (
+                                isActive
+                                    ? 'site-nav__link site-nav__link--active'
+                                    : 'site-nav__link'
+                            )}
                             to="/users"
                         >
                             Users
@@ -73,6 +110,7 @@ export default function SiteHeader() {
                             Log in
                         </NavLink>
                     )}
+                    <ThemeToggle />
                 </nav>
             </div>
         </header>

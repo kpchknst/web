@@ -1,0 +1,106 @@
+/* Lab 4 — editing styles. Loaded from main.jsx. */
+
+.edit-card {
+    display: block;
+    background: #fff;
+    border: 1px solid #ece6f5;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-block: 1rem;
+    text-align: left;
+    color: inherit;
+    text-decoration: none;
+}
+
+.edit-card--button {
+    width: 100%;
+    cursor: pointer;
+    font: inherit;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.edit-card--button:hover {
+    border-color: #b9a4d8;
+    box-shadow: 0 2px 8px rgba(106, 58, 166, 0.08);
+}
+
+.edit-card__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+}
+
+.edit-card__title {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    color: #352849;
+    margin: 0;
+    font-size: 1.125rem;
+}
+
+.edit-card__meta {
+    color: #6b6373;
+    font-size: 0.8125rem;
+}
+
+.diff {
+    margin-block: 1rem;
+    border: 1px solid #ece6f5;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.diff__header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #faf7ff;
+    border-bottom: 1px solid #ece6f5;
+}
+
+.diff__label {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #352849;
+}
+
+.diff__label + .diff__label {
+    border-left: 1px solid #ece6f5;
+}
+
+.diff__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.8125rem;
+}
+
+.diff__cell {
+    padding: 0.25rem 0.75rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+    border-bottom: 1px solid #f3eef9;
+    color: #352849;
+}
+
+.diff__cell + .diff__cell {
+    border-left: 1px solid #ece6f5;
+}
+
+.diff__row--del .diff__cell:first-child {
+    background: #ffebe9;
+    color: #cf222e;
+}
+
+.diff__row--add .diff__cell:last-child {
+    background: #dafbe1;
+    color: #1a7f37;
+}
+
+.diff__row--context .diff__cell {
+    background: #fff;
+    color: #6b6373;
+}

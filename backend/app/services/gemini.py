@@ -1,26 +1,29 @@
-"""Thin wrapper around Google Gemini for AI readings.
+"""LLM wrapper for AI readings — Gemini and Groq.
 
-Uses the supported `google-genai` SDK (not the deprecated
-`google-generativeai`). Default model `gemini-2.0-flash` — free tier,
-no thinking-token truncation, predictable outputs.
+Default provider is `gemini` (gemini-2.0-flash). Set `LLM_PROVIDER=groq`
+plus `GROQ_API_KEY` (and optionally `LLM_MODEL`) in the environment to
+swap to Groq + Llama 3.3 70B, which has a much more generous free tier.
+
+The public API (`generate_perfume_reading`, `generate_personality_reading`,
+the three typed exceptions) is provider-agnostic.
 """
 
 import os
 
-from google import genai
-from google.genai import types
+DEFAULT_GEMINI_MODEL = "gemini-2.0-flash"
+DEFAULT_GROQ_MODEL = "llama-3.3-70b-versatile"
 
 
 class AIConfigurationError(Exception):
-    """Raised when GEMINI_API_KEY is not set."""
+    """Raised when the configured provider's API key is not set."""
 
 
 class AIRateLimitError(Exception):
-    """Raised when Gemini returns 429."""
+    """Raised when the provider returns 429 / quota exhaustion."""
 
 
 class AIServiceError(Exception):
-    """Raised for generic Gemini failures (5xx, timeout, empty output)."""
+    """Raised for generic provider failures (5xx, timeout, empty output)."""
 
 
 _PERFUME_SYSTEM = (
@@ -42,21 +45,37 @@ _PERSONALITY_SYSTEM = (
     "the chosen stones; do not list them separately. Be poetic but specific."
 )
 
-_MODEL_NAME = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+
+def _provider() -> str:
+    return (os.getenv("LLM_PROVIDER") or "gemini").strip().lower()
 
 
-def _client() -> genai.Client:
+def _model() -> str:
+    explicit = os.getenv("LLM_MODEL") or os.getenv("GEMINI_MODEL")
+    if explicit:
+        return explicit
+    return DEFAULT_GROQ_MODEL if _provider() == "groq" else DEFAULT_GEMINI_MODEL
+
+
+def _classify_provider_error(exc: Exception) -> Exception:
+    message = str(exc).lower()
+    if "429" in message or "rate" in message or "quota" in message:
+        return AIRateLimitError(str(exc))
+    return AIServiceError(str(exc))
+
+
+def _call_gemini(system_instruction: str, user_prompt: str) -> str:
     key = os.getenv("GEMINI_API_KEY")
     if not key:
         raise AIConfigurationError("GEMINI_API_KEY env var is not set")
-    return genai.Client(api_key=key)
 
+    from google import genai
+    from google.genai import types
 
-def _call(system_instruction: str, user_prompt: str) -> str:
-    client = _client()
+    client = genai.Client(api_key=key)
     try:
         response = client.models.generate_content(
-            model=_MODEL_NAME,
+            model=_model(),
             contents=user_prompt,
             config=types.GenerateContentConfig(
                 system_instruction=system_instruction,
@@ -65,16 +84,52 @@ def _call(system_instruction: str, user_prompt: str) -> str:
                 max_output_tokens=800,
             ),
         )
-    except Exception as exc:  # noqa: BLE001
-        message = str(exc).lower()
-        if "429" in message or "rate" in message or "quota" in message:
-            raise AIRateLimitError(str(exc)) from exc
-        raise AIServiceError(str(exc)) from exc
+    except Exception as exc:  # noqa: BLE001 — re-classified below
+        raise _classify_provider_error(exc) from exc
 
     text = (getattr(response, "text", "") or "").strip()
     if not text:
         raise AIServiceError(f"Empty response from Gemini: {response!r}")
     return text
+
+
+def _call_groq(system_instruction: str, user_prompt: str) -> str:
+    key = os.getenv("GROQ_API_KEY")
+    if not key:
+        raise AIConfigurationError("GROQ_API_KEY env var is not set")
+
+    from groq import Groq
+
+    client = Groq(api_key=key)
+    try:
+        response = client.chat.completions.create(
+            model=_model(),
+            messages=[
+                {"role": "system", "content": system_instruction},
+                {"role": "user", "content": user_prompt},
+            ],
+            temperature=0,
+            top_p=1,
+            max_completion_tokens=800,
+        )
+    except Exception as exc:  # noqa: BLE001 — re-classified below
+        raise _classify_provider_error(exc) from exc
+
+    choices = getattr(response, "choices", None) or []
+    text = ""
+    if choices:
+        message = getattr(choices[0], "message", None)
+        if message is not None:
+            text = (getattr(message, "content", "") or "").strip()
+    if not text:
+        raise AIServiceError(f"Empty response from Groq: {response!r}")
+    return text
+
+
+def _call(system_instruction: str, user_prompt: str) -> str:
+    if _provider() == "groq":
+        return _call_groq(system_instruction, user_prompt)
+    return _call_gemini(system_instruction, user_prompt)
 
 
 def generate_perfume_reading(stone_slugs: list[str], gender: str | None) -> str:

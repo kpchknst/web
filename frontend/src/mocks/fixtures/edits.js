@@ -1,0 +1,43 @@
+export const edits = [
+    {
+        id: 'e-pending-001',
+        article_id: 'a-001',
+        editor_id: 'u-regular-001',
+        proposed_title: 'Rose Quartz',
+        proposed_content: 'Soft pink quartz of the heart. Updated draft.',
+        base_version: 1,
+        status: 'pending',
+        submitted_at: '2026-02-01T10:00:00Z',
+        reviewed_at: null,
+        reviewer_id: null,
+        rejection_reason: null,
+    },
+    {
+        id: 'e-approved-001',
+        article_id: 'a-002',
+        editor_id: 'u-regular-001',
+        proposed_title: 'Amethyst',
+        proposed_content: 'Violet quartz. Calming. Approved revision.',
+        base_version: 1,
+        status: 'approved',
+        submitted_at: '2026-02-02T10:00:00Z',
+        reviewed_at: '2026-02-02T11:00:00Z',
+        reviewer_id: 'u-admin-001',
+        rejection_reason: null,
+    },
+    {
+        id: 'e-rejected-001',
+        article_id: 'a-003',
+        editor_id: 'u-regular-001',
+        proposed_title: 'Black Tourmaline',
+        proposed_content: 'Bad edit.',
+        base_version: 1,
+        status: 'rejected',
+        submitted_at: '2026-02-03T10:00:00Z',
+        reviewed_at: '2026-02-03T11:00:00Z',
+        reviewer_id: 'u-admin-001',
+        rejection_reason: 'Insufficient detail.',
+    },
+];
+
+export default edits;
