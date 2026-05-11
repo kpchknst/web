@@ -1,6 +1,17 @@
 /* SPA-only styles that supplement the Lab 1 compiled main.css.
    Kept tiny on purpose — almost every class lives in main.css already. */
 
+/* The Lab 1 static page uses .page-article__main / .page-article__sidebar
+   wrappers so the 2-column grid works. The React SPA renders direct
+   children of .page-article, so the lg-breakpoint grid stretches a flex
+   container (.page-article__tags) into a 1000px-tall row and each badge
+   inherits that height. Collapse to a single column for the SPA. */
+@media (min-width: 1024px) {
+    .page-article {
+        grid-template-columns: 1fr;
+    }
+}
+
 .spinner {
     display: inline-flex;
     align-items: center;

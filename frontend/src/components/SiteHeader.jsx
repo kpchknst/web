@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 
 import useAuth from '../auth/useAuth.js';
 import Badge from './Badge.jsx';
+import ThemeToggle from './ThemeToggle.jsx';
 
 export default function SiteHeader() {
     const { user, logout } = useAuth();
@@ -109,6 +110,7 @@ export default function SiteHeader() {
                             Log in
                         </NavLink>
                     )}
+                    <ThemeToggle />
                 </nav>
             </div>
         </header>

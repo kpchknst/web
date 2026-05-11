@@ -6,10 +6,12 @@ import App from './App.jsx';
 import { AuthProvider } from './auth/AuthContext.jsx';
 
 import '../pages/styles/main.css';
+import './styles/theme.css';
 import './styles/spa.css';
 import './styles/lab4-forms.css';
 import './styles/lab4-editing.css';
 import './styles/lab4-pages.css';
+import './styles/components.css';
 
 const ROUTER_FUTURE = {
     v7_startTransition: true,

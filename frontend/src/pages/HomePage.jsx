@@ -7,18 +7,20 @@ import Badge from '../components/Badge.jsx';
 import SearchBox from '../components/SearchBox.jsx';
 import Spinner from '../components/Spinner.jsx';
 import TagFilter from '../components/TagFilter.jsx';
+import useRevealOnScroll from '../hooks/useRevealOnScroll.js';
 import { buildExcerpt } from '../utils/format.js';
 import { getStoneImageUrl } from '../utils/stoneImages.js';
 
 const FALLBACK_TAG = 'with-perfume-notes';
 
-function ArticleCard({ article }) {
+function ArticleCard({ article, index }) {
     const tagSlugs = (article.tags || []).map((tag) => tag.slug);
     const headerTag = tagSlugs[0] || FALLBACK_TAG;
     const metaTags = tagSlugs.length === 0 ? FALLBACK_TAG : tagSlugs.join(' · ');
     const imageSrc = getStoneImageUrl(article.slug);
+    const delay = `${Math.min(index, 9) * 60}ms`;
     return (
-        <article className="card">
+        <article className="card" data-reveal style={{ transitionDelay: delay }}>
             {imageSrc ? (
                 <img
                     className="card__thumb"
@@ -111,6 +113,8 @@ export default function HomePage() {
 
     const filtersActive = Boolean(q) || tagsArray.length > 0;
 
+    useRevealOnScroll([articles, loading]);
+
     return (
         <>
             <section className="page-home__hero" aria-labelledby="hero-title">
@@ -156,8 +160,8 @@ export default function HomePage() {
 
             {!loading && !error && articles.length > 0 && (
                 <section className="page-home__grid" aria-label="Article list">
-                    {articles.map((article) => (
-                        <ArticleCard key={article.id} article={article} />
+                    {articles.map((article, index) => (
+                        <ArticleCard key={article.id} article={article} index={index} />
                     ))}
                 </section>
             )}

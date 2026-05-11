@@ -7,6 +7,7 @@ import Alert from '../components/Alert.jsx';
 import Badge from '../components/Badge.jsx';
 import ConfirmModal from '../components/ConfirmModal.jsx';
 import Spinner from '../components/Spinner.jsx';
+import useRevealOnScroll from '../hooks/useRevealOnScroll.js';
 import { formatDate, splitParagraphs } from '../utils/format.js';
 import { getStoneImageUrl } from '../utils/stoneImages.js';
 
@@ -47,6 +48,8 @@ export default function ArticlePage() {
         };
     }, [slug]);
 
+    useRevealOnScroll([article?.id]);
+
     if (loading) {
         return <Spinner label="Loading article…" />;
     }
@@ -67,6 +70,7 @@ export default function ArticlePage() {
     const paragraphs = splitParagraphs(article.content);
     const heroSrc = getStoneImageUrl(article.slug);
     const isAdmin = user?.role === 'admin';
+    const dropcapEligible = paragraphs[0] && paragraphs[0].length > 140;
 
     const handleDelete = async () => {
         setDeleteBusy(true);
@@ -115,10 +119,34 @@ export default function ArticlePage() {
             </div>
 
             <div className="page-article__body">
-                {paragraphs.map((para, index) => (
-                    // eslint-disable-next-line react/no-array-index-key
-                    <p key={index}>{para}</p>
-                ))}
+                {paragraphs.map((para, index) => {
+                    const delay = `${Math.min(index, 6) * 80}ms`;
+                    if (index === 0 && dropcapEligible) {
+                        const first = para.charAt(0);
+                        const rest = para.slice(1);
+                        return (
+                            <p
+                                // eslint-disable-next-line react/no-array-index-key
+                                key={index}
+                                data-reveal
+                                style={{ transitionDelay: delay }}
+                            >
+                                <span className="dropcap" aria-hidden="true">{first}</span>
+                                {rest}
+                            </p>
+                        );
+                    }
+                    return (
+                        <p
+                            // eslint-disable-next-line react/no-array-index-key
+                            key={index}
+                            data-reveal
+                            style={{ transitionDelay: delay }}
+                        >
+                            {para}
+                        </p>
+                    );
+                })}
             </div>
 
             {user && (
