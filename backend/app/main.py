@@ -5,10 +5,12 @@ import os
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 load_dotenv()
 
-from .routers import ai, articles, auth, edits, tags, users  # noqa: E402  (import after dotenv)
+from .routers import ai, articles, auth, edits, tags, uploads, users  # noqa: E402  (import after dotenv)
+from .services.storage import LOCAL_DIR  # noqa: E402
 
 app = FastAPI(
     title="Stones & Scents API",
@@ -31,7 +33,14 @@ app.include_router(users.router, prefix="/users", tags=["users"])
 app.include_router(tags.router, prefix="/tags", tags=["tags"])
 app.include_router(articles.router, prefix="/articles", tags=["articles"])
 app.include_router(edits.router, tags=["edits"])  # routes split across /articles/.. and /edits/..
+app.include_router(uploads.router, prefix="/uploads", tags=["uploads"])
 app.include_router(ai.router)
+
+# Local-fs fallback for cover images (used when SUPABASE_SERVICE_KEY is empty
+# or USE_SQLITE=1). The router above takes precedence for POST /uploads;
+# StaticFiles serves GET /uploads/<key>.
+LOCAL_DIR.mkdir(parents=True, exist_ok=True)
+app.mount("/uploads", StaticFiles(directory=str(LOCAL_DIR)), name="uploads")
 
 
 @app.get("/", tags=["meta"])

@@ -43,3 +43,6 @@ yarn-debug.log*
 *.sqlite
 *.sqlite3
 *.db
+
+# --- local-fs upload fallback (Lab 4) ---
+backend/uploads/

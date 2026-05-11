@@ -133,6 +133,12 @@ class EditReject(BaseModel):
     reason: str = Field(..., min_length=1, max_length=500)
 
 
+# --- uploads -------------------------------------------------------------
+
+class UploadOut(BaseModel):
+    url: str
+
+
 # --- AI readings ---------------------------------------------------------
 
 class AIReadingCreate(BaseModel):
