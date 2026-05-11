@@ -96,3 +96,173 @@
     color: #c44e3e;
     font-size: 0.875rem;
 }
+
+/* --- Reading page --------------------------------------------------- */
+
+.page-reading {
+    max-width: 880px;
+    margin: 0 auto;
+}
+
+.page-reading__title {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    color: #4a236f;
+    margin-bottom: 0.25rem;
+}
+
+.page-reading__subtitle {
+    color: #6b6373;
+    margin-bottom: 1.5rem;
+}
+
+.page-reading__mode-toggle {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.page-reading__actions {
+    margin: 1.5rem 0;
+}
+
+/* --- Stone picker --------------------------------------------------- */
+
+.stone-picker {
+    margin: 1rem 0 1.5rem;
+}
+
+.stone-picker__hint {
+    color: #6b6373;
+    font-size: 0.875rem;
+    margin: 0 0 0.75rem;
+}
+
+.stone-picker__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.75rem;
+}
+
+.stone-picker__card {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+    background: #fff;
+    border: 2px solid #e2dde6;
+    border-radius: 8px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+    font: inherit;
+    color: inherit;
+}
+
+.stone-picker__card:hover:not(:disabled) {
+    border-color: #b39ad6;
+    transform: translateY(-2px);
+}
+
+.stone-picker__card:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.stone-picker__card--selected {
+    border-color: #6a3aa6;
+    box-shadow: 0 0 0 3px rgba(106, 58, 166, 0.15);
+}
+
+.stone-picker__thumb {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    display: block;
+}
+
+.stone-picker__name {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #4a236f;
+    text-align: center;
+}
+
+/* --- Reading result ------------------------------------------------- */
+
+.reading-result {
+    background: #fff;
+    border: 1px solid #e2dde6;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 2px 8px rgba(44, 31, 51, 0.06);
+}
+
+.reading-result__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #efeaf2;
+}
+
+.reading-result__meta {
+    color: #6b6373;
+    font-size: 0.875rem;
+}
+
+.reading-result__body {
+    color: #2c1f33;
+    line-height: 1.65;
+}
+
+.reading-result__body h2 {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    color: #4a236f;
+    font-size: 1.25rem;
+    margin: 1.25rem 0 0.5rem;
+}
+
+.reading-result__body p {
+    margin: 0 0 0.75rem;
+}
+
+.reading-result__body ul {
+    padding-left: 1.25rem;
+    margin: 0.75rem 0;
+}
+
+.reading-result__body li {
+    margin-bottom: 0.5rem;
+}
+
+.reading-result__disclaimer {
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #efeaf2;
+    color: #9a8fa3;
+    font-size: 0.75rem;
+    font-style: italic;
+}
+
+/* --- Profile "My readings" section ---------------------------------- */
+
+.page-user-detail__readings {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e2dde6;
+}
+
+.page-user-detail__readings-title {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    color: #4a236f;
+    margin-bottom: 1rem;
+}
+
+.page-user-detail__readings-empty {
+    color: #6b6373;
+}

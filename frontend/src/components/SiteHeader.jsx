@@ -28,6 +28,18 @@ export default function SiteHeader() {
                     >
                         Home
                     </NavLink>
+                    {user && (
+                        <NavLink
+                            className={({ isActive }) => (
+                                isActive
+                                    ? 'site-nav__link site-nav__link--active'
+                                    : 'site-nav__link'
+                            )}
+                            to="/my-reading"
+                        >
+                            My reading
+                        </NavLink>
+                    )}
                     {user?.role === 'admin' && (
                         <NavLink
                             className={({ isActive }) => (

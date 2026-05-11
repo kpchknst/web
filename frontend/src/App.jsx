@@ -6,6 +6,7 @@ import ProtectedRoute from './auth/ProtectedRoute.jsx';
 import HomePage from './pages/HomePage.jsx';
 import ArticlePage from './pages/ArticlePage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
+import ReadingPage from './pages/ReadingPage.jsx';
 import UsersListPage from './pages/UsersListPage.jsx';
 import UserCreatePage from './pages/UserCreatePage.jsx';
 import UserDetailPage from './pages/UserDetailPage.jsx';
@@ -19,6 +20,14 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/articles/:slug" element={<ArticlePage />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route
+                    path="/my-reading"
+                    element={(
+                        <ProtectedRoute>
+                            <ReadingPage />
+                        </ProtectedRoute>
+                    )}
+                />
                 <Route
                     path="/users"
                     element={(
