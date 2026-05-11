@@ -8,6 +8,7 @@ import ArticlePage from './pages/ArticlePage.jsx';
 import ArticleEditorPage from './pages/ArticleEditorPage.jsx';
 import ArticleHistoryPage from './pages/ArticleHistoryPage.jsx';
 import ModerationQueuePage from './pages/ModerationQueuePage.jsx';
+import TagsAdminPage from './pages/TagsAdminPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import ReadingPage from './pages/ReadingPage.jsx';
@@ -90,6 +91,14 @@ function App() {
                     element={(
                         <ProtectedRoute requireAdmin>
                             <ModerationQueuePage />
+                        </ProtectedRoute>
+                    )}
+                />
+                <Route
+                    path="/tags"
+                    element={(
+                        <ProtectedRoute requireAdmin>
+                            <TagsAdminPage />
                         </ProtectedRoute>
                     )}
                 />
