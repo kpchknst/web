@@ -39,6 +39,7 @@ def create_user(
         username=payload.username,
         password_hash=hash_password(payload.password),
         role=payload.role or "regular",
+        gender=payload.gender,
     )
     db.add(user)
     db.commit()
@@ -80,6 +81,8 @@ def update_user(
         user.password_hash = hash_password(payload.password)
     if payload.role and current.role == "admin":
         user.role = payload.role
+    if payload.gender is not None:
+        user.gender = payload.gender
     db.commit()
     db.refresh(user)
     return user
