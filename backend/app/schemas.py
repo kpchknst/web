@@ -7,10 +7,12 @@ The 2000-char limit on article content (Variant 5) is enforced here via
 from datetime import datetime
 from typing import Literal, Optional
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 Role = Literal["regular", "admin"]
+Gender = Literal["female", "male", "prefer_not_to_say"]
 EditStatus = Literal["pending", "approved", "rejected", "stale"]
+ReadingKind = Literal["perfume", "personality"]
 
 
 # --- auth ----------------------------------------------------------------
@@ -31,18 +33,21 @@ class UserCreate(BaseModel):
     username: str = Field(..., min_length=3, max_length=50)
     password: str = Field(..., min_length=6, max_length=128)
     role: Optional[Role] = "regular"
+    gender: Optional[Gender] = None
 
 
 class UserUpdate(BaseModel):
     username: Optional[str] = Field(None, min_length=3, max_length=50)
     password: Optional[str] = Field(None, min_length=6, max_length=128)
     role: Optional[Role] = None
+    gender: Optional[Gender] = None
 
 
 class UserOut(BaseModel):
     id: str
     username: str
     role: str
+    gender: Optional[Gender] = None
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
@@ -116,3 +121,29 @@ class EditOut(BaseModel):
 
 class EditReject(BaseModel):
     reason: str = Field(..., min_length=1, max_length=500)
+
+
+# --- AI readings ---------------------------------------------------------
+
+class AIReadingCreate(BaseModel):
+    kind: ReadingKind
+    stone_slugs: list[str] = Field(..., min_length=1, max_length=3)
+
+
+class AIReadingOut(BaseModel):
+    id: str
+    user_id: str
+    kind: ReadingKind
+    stone_slugs: list[str]
+    gender_at_time: Optional[Gender] = None
+    content: str
+    created_at: datetime
+
+    @field_validator("stone_slugs", mode="before")
+    @classmethod
+    def _split_slugs(cls, value):
+        if isinstance(value, str):
+            return [s for s in value.split(",") if s]
+        return value
+
+    model_config = ConfigDict(from_attributes=True)

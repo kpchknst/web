@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { deleteUser, getUser } from '../api/users.js';
+import { listReadings } from '../api/readings.js';
 import useAuth from '../auth/useAuth.js';
 import Alert from '../components/Alert.jsx';
 import Badge from '../components/Badge.jsx';
 import ConfirmModal from '../components/ConfirmModal.jsx';
+import ReadingResult from '../components/ReadingResult.jsx';
 import Spinner from '../components/Spinner.jsx';
 import { formatDate } from '../utils/format.js';
 
@@ -19,6 +21,8 @@ export default function UserDetailPage() {
     const [error, setError] = useState('');
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [deleteBusy, setDeleteBusy] = useState(false);
+    const [readings, setReadings] = useState([]);
+    const [readingsLoading, setReadingsLoading] = useState(true);
 
     useEffect(() => {
         let cancelled = false;
@@ -45,6 +49,36 @@ export default function UserDetailPage() {
             cancelled = true;
         };
     }, [id]);
+
+    useEffect(() => {
+        if (!currentUser || currentUser.id !== id) {
+            setReadings([]);
+            setReadingsLoading(false);
+            return undefined;
+        }
+        let cancelled = false;
+        async function loadReadings() {
+            setReadingsLoading(true);
+            try {
+                const data = await listReadings();
+                if (!cancelled) {
+                    setReadings(Array.isArray(data) ? data : []);
+                }
+            } catch (_) {
+                if (!cancelled) {
+                    setReadings([]);
+                }
+            } finally {
+                if (!cancelled) {
+                    setReadingsLoading(false);
+                }
+            }
+        }
+        loadReadings();
+        return () => {
+            cancelled = true;
+        };
+    }, [id, currentUser]);
 
     if (loading) {
         return <Spinner label="Loading user…" />;
@@ -108,6 +142,9 @@ export default function UserDetailPage() {
 
                     <dt>Role</dt>
                     <dd>{user.role}</dd>
+
+                    <dt>Gender</dt>
+                    <dd>{user.gender || '(unspecified)'}</dd>
                 </dl>
 
                 <div className="page-user-detail__actions">
@@ -130,6 +167,31 @@ export default function UserDetailPage() {
                     )}
                 </div>
             </article>
+
+            {currentUser && currentUser.id === user.id && (
+                <section
+                    className="page-user-detail__readings"
+                    aria-labelledby="readings-title"
+                >
+                    <h2 id="readings-title" className="page-user-detail__readings-title">
+                        My readings
+                    </h2>
+                    {readingsLoading && <Spinner label="Loading readings…" />}
+                    {!readingsLoading && readings.length === 0 && (
+                        <p className="page-user-detail__readings-empty">
+                            You haven&apos;t generated any readings yet. Try one on
+                            the
+                            {' '}
+                            <Link to="/my-reading">My reading</Link>
+                            {' '}
+                            page.
+                        </p>
+                    )}
+                    {!readingsLoading && readings.map((r) => (
+                        <ReadingResult key={r.id} reading={r} />
+                    ))}
+                </section>
+            )}
 
             <ConfirmModal
                 open={deleteOpen}

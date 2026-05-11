@@ -30,6 +30,7 @@ class User(Base):
     username = Column(String(50), unique=True, nullable=False, index=True)
     password_hash = Column(String(255), nullable=False)
     role = Column(String(10), nullable=False)
+    gender = Column(String(20), nullable=True)
     created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
 
     articles = relationship(
@@ -37,6 +38,9 @@ class User(Base):
     )
     edits = relationship(
         "ArticleEdit", back_populates="editor", foreign_keys="ArticleEdit.editor_id"
+    )
+    readings = relationship(
+        "AIReading", back_populates="user", cascade="all, delete-orphan"
     )
 
 
@@ -109,3 +113,22 @@ class ArticleTag(Base):
     tag_id = Column(
         String(36), ForeignKey("tags.id", ondelete="CASCADE"), primary_key=True
     )
+
+
+class AIReading(Base):
+    __tablename__ = "ai_readings"
+
+    id = Column(String(36), primary_key=True, default=gen_uuid)
+    user_id = Column(
+        String(36),
+        ForeignKey("users.id", ondelete="CASCADE"),
+        nullable=False,
+        index=True,
+    )
+    kind = Column(String(20), nullable=False)
+    stone_slugs = Column(Text, nullable=False)
+    gender_at_time = Column(String(20), nullable=True)
+    content = Column(Text, nullable=False)
+    created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
+
+    user = relationship("User", back_populates="readings")
