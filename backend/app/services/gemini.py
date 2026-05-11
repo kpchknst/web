@@ -1,8 +1,14 @@
-"""Thin wrapper around Google Gemini 1.5 Flash for AI readings."""
+"""Thin wrapper around Google Gemini for AI readings.
+
+Uses the supported `google-genai` SDK (not the deprecated
+`google-generativeai`). Default model `gemini-2.0-flash` — free tier,
+no thinking-token truncation, predictable outputs.
+"""
 
 import os
 
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 
 
 class AIConfigurationError(Exception):
@@ -36,31 +42,29 @@ _PERSONALITY_SYSTEM = (
     "the chosen stones; do not list them separately. Be poetic but specific."
 )
 
-_GENERATION_CONFIG = {
-    "temperature": 0,
-    "top_p": 1,
-    "max_output_tokens": 600,
-}
-
 _MODEL_NAME = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
 
 
-def _configure() -> None:
+def _client() -> genai.Client:
     key = os.getenv("GEMINI_API_KEY")
     if not key:
         raise AIConfigurationError("GEMINI_API_KEY env var is not set")
-    genai.configure(api_key=key)
+    return genai.Client(api_key=key)
 
 
 def _call(system_instruction: str, user_prompt: str) -> str:
-    _configure()
+    client = _client()
     try:
-        model = genai.GenerativeModel(
-            model_name=_MODEL_NAME,
-            system_instruction=system_instruction,
-            generation_config=_GENERATION_CONFIG,
+        response = client.models.generate_content(
+            model=_MODEL_NAME,
+            contents=user_prompt,
+            config=types.GenerateContentConfig(
+                system_instruction=system_instruction,
+                temperature=0,
+                top_p=1,
+                max_output_tokens=800,
+            ),
         )
-        response = model.generate_content(user_prompt)
     except Exception as exc:  # noqa: BLE001
         message = str(exc).lower()
         if "429" in message or "rate" in message or "quota" in message:
@@ -69,7 +73,7 @@ def _call(system_instruction: str, user_prompt: str) -> str:
 
     text = (getattr(response, "text", "") or "").strip()
     if not text:
-        raise AIServiceError("Empty response from Gemini")
+        raise AIServiceError(f"Empty response from Gemini: {response!r}")
     return text
 
 
