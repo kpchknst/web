@@ -3,7 +3,7 @@ export default function SiteFooter() {
         <footer className="site-footer">
             <div className="container">
                 <small>
-                    Stones &amp; Scents Encyclopedia · Lab 3 ·
+                    Stones &amp; Scents Encyclopedia ·
                     {' '}
                     <a href="https://github.com/kpchknst/web">github.com/kpchknst/web</a>
                 </small>
