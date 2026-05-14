@@ -124,6 +124,16 @@ export default function HomePage() {
                     entry pairs the geology and lore with a hand-picked perfume that
                     matches the stone&apos;s character.
                 </p>
+                <button
+                    type="button"
+                    className="btn btn--small"
+                    onClick={() => {
+                        console.log('Hello user!');
+                        alert('Hello user!');
+                    }}
+                >
+                    Say hello
+                </button>
             </section>
 
             <section className="page-home__filters" aria-label="Filters">
